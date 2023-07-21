@@ -1,0 +1,90 @@
+{
+	"info": {
+		"_postman_id": "e59f3693-fcfa-4d38-be79-793c46432403",
+		"name": "POSSIBLE-X",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://possible.fokus.fraunhofer.de/api/hub/repo/catalogues/test-provider/datasets/origin?originalId=hackathon3-test-dataset",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib3BlcmF0b3IiXX19.lMkYKTViVNVPFH49ntdkruLe5EaWRUYt1YL-1Y7b0gc"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix dcat:   <http://www.w3.org/ns/dcat#> .\n@prefix dct:    <http://purl.org/dc/terms/> .\n@prefix gax-core: <http://w3id.org/gaia-x/core#> .\n@prefix gax-trust-framework: <http://w3id.org/gaia-x/gax-trust-framework#> .\n@prefix possible-x: <https://possible-gaia-x.de/ns/#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n<https://possible.fokus.fraunhofer.de/set/data/test-dataset>\n    a                                   dcat:Dataset ;\n    a                                   gax-trust-framework:DataResource ;\n    dct:description                     \"This is an example for a Gaia-X Data Resource\"@en ;\n    dct:title                           \"Example Gaia-X Data Resource\"@en ;\n    gax-trust-framework:producedBy      <https://piveau.io/set/resource/some-legal-person/some-legal-person-2> ;\n    gax-trust-framework:exposedThrough  <http://85.215.202.146:8282/> ;\n    gax-trust-framework:containsPII     \"false\"^^xsd:boolean ;\n    possible-x:edcApiVersion            \"0.1.2\";\n    possible-x:contractOfferId          \"1:50f75a7a-5f81-4764-b2f9-ac258c3628e2\" ;\n    possible-x:assetId                  \"assetId\" ;\n    possible-x:protocol                 possible-x:dataspace-protocol-http ;  \n    possible-x:hasPolicy                [\n                                            a possible-x:Policy ;\n                                            possible-x:policyType possible-x:Set ;\n                                            possible-x:uid \"231802-bb34-11ec-8422-0242ac120002\" ;\n                                            possible-x:hasPermissions [\n                                                a possible-x:Permission ;\n                                                possible-x:target \"assetId\" ;\n                                                possible-x:action possible-x:Use ;\n                                                possible-x:edcType \"dataspaceconnector:permission\" ;\n                                            ] ;\n                                        ] ;\n    dcat:distribution                   <https://possible.fokus.fraunhofer.de/set/distribution/1> .\n\n<https://possible.fokus.fraunhofer.de/set/distribution/1>\n    a                               dcat:Distribution ;\n    dct:license                     <http://dcat-ap.de/def/licenses/gfdl> ;\n    dcat:accessURL                  <http://85.215.193.145:9192/api/v1/data/assets/test-document_company2> .\n"
+				},
+				"url": {
+					"raw": "https://possible.fokus.fraunhofer.de/api/hub/repo/catalogues/test-provider/datasets/origin?originalId=hackathon3-test-dataset",
+					"protocol": "https",
+					"host": [
+						"possible",
+						"fokus",
+						"fraunhofer",
+						"de"
+					],
+					"path": [
+						"api",
+						"hub",
+						"repo",
+						"catalogues",
+						"test-provider",
+						"datasets",
+						"origin"
+					],
+					"query": [
+						{
+							"key": "originalId",
+							"value": "hackathon3-test-dataset"
+						}
+					]
+				},
+				"description": "Add a data resource by ID"
+			},
+			"response": []
+		},
+		{
+			"name": "https://possible.fokus.fraunhofer.de/api/hub/repo/datasets/hackathon3-test-dataset",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib3BlcmF0b3IiXX19.lMkYKTViVNVPFH49ntdkruLe5EaWRUYt1YL-1Y7b0gc"
+					}
+				],
+				"url": {
+					"raw": "https://possible.fokus.fraunhofer.de/api/hub/repo/datasets/hackathon3-test-dataset",
+					"protocol": "https",
+					"host": [
+						"possible",
+						"fokus",
+						"fraunhofer",
+						"de"
+					],
+					"path": [
+						"api",
+						"hub",
+						"repo",
+						"datasets",
+						"hackathon3-test-dataset"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
