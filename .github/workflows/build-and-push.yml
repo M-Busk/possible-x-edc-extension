@@ -41,13 +41,13 @@ jobs:
 #      - name: Write signing key to disk
 #        run: echo "${{ secrets.SIGNING_SECRET }}" > cosign.key
 #
-#      - name: Build and push "connector"
-#        id: build_and_push_connector
-#        uses: docker/build-push-action@v4
-#        with:
-#          context: ./connector
-#          file: ./connector/Dockerfile
-#          push: true
+      - name: Build and push "connector"
+        id: build_and_push_connector
+        uses: docker/build-push-action@v4
+        with:
+          context: ./connector
+          file: ./connector/Dockerfile
+          push: false
 #          tags: ${{ steps.connector-meta.outputs.tags }}
 #          labels: ${{ steps.connector-meta.outputs.labels }}
 #      - name: Sign "connector" image
