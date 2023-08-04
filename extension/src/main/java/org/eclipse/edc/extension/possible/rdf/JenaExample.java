@@ -26,12 +26,12 @@ public class JenaExample {
         Model model = ModelFactory.createDefaultModel();
 
         HashMap<String,String> prefixes = new HashMap<>();
-        prefixes.put(Constants.PREF_DCAT ,"http://www.w3.org/ns/dcat#");
-        prefixes.put(Constants.PREF_DCT,"http://purl.org/dc/terms/");
-        prefixes.put(Constants.PREF_XSD,"http://www.w3.org/2001/XMLSchema#");
-        prefixes.put(Constants.PREF_GAX_CORE,"http://w3id.org/gaia-x/core#");
-        prefixes.put(Constants.PREF_GAX_TRUST_FRAMEWORK,"http://w3id.org/gaia-x/gax-trust-framework#");
-        prefixes.put(Constants.PREF_POSSIBLE_X,"http://w3id.org/gaia-x/possible-x#");
+        prefixes.put(Constants.PREF_DCAT, Constants.PREF_DCAT_URI);
+        prefixes.put(Constants.PREF_DCT, Constants.PREF_DCT_URI);
+        prefixes.put(Constants.PREF_XSD, Constants.PREF_XSD_URI);
+        prefixes.put(Constants.PREF_GAX_CORE, Constants.PREF_GAX_CORE_URI);
+        prefixes.put(Constants.PREF_GAX_TRUST_FRAMEWORK, Constants.PREF_GAX_TRUST_FRAMEWORK_URI);
+        prefixes.put(Constants.PREF_POSSIBLE_X, Constants.PREF_POSSIBLE_X_URI);
 
         // gax-trust-framework
         String dataResource  = "DataResource";
