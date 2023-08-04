@@ -19,7 +19,11 @@ import java.net.URL;
 import java.util.HashMap;
 
 public class JenaExample {
-     public static String writeRDF(String assetId) {
+
+    public JenaExample() {
+    }
+
+    public String writeRDF(String edcApiVersion, String contractOfferId, String assetId, String policyId, String target, String description, String title) {
         Model model = ModelFactory.createDefaultModel();
 
         HashMap<String,String> prefixes = new HashMap<>();
@@ -36,12 +40,12 @@ public class JenaExample {
         String exposedThrough = "exposedThrough";
         String containsPII = "containsPII";
         // possible-x
-        String edcApiVersion = "edcApiVersion";
-        String contractOfferId = "contractOfferId";
+        String predicateEdcApiVersion = "edcApiVersion";
+        String predicateContractOfferId = "contractOfferId";
         String predicateAssetId = "assetId";
-        String protocol = "protocol";
-        String idsMultipart = "IdsMultipart";
-        String hasPolicy = "hasPolicy";
+        String predicateProtocol = "protocol";
+        String predicateIdsMultipart = "IdsMultipart";
+        String predicateHasPolicy = "hasPolicy";
 
          for (String key : prefixes.keySet())
                 model.setNsPrefix(key, prefixes.get(key));
@@ -51,27 +55,26 @@ public class JenaExample {
          Resource objectPolicy = model.createResource()
                  .addProperty(RDF.type, model.createResource(prefixes.get(Constants.PREF_POSSIBLE_X)+"Policy"))
                  .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+"policyType"), model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+"Set"))
-                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+"uid"), "231802-bb34-11ec-8422-0242ac120002")
+                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+"uid"), policyId)
                  .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+"hasPermissions"), model.createResource()
                     .addProperty(RDF.type, model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+"Permission"))
-                    .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+"target"), assetId)
+                    .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+"target"), target)
                     .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+"action"), model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+"Use"))
                     .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+"edcType"), "dataspaceconnector:permission")
                  );
 
          subjectData.addProperty(RDF.type, DCAT.Dataset)
                  .addProperty(RDF.type, model.createResource(prefixes.get(Constants.PREF_GAX_TRUST_FRAMEWORK)+dataResource))
-                 .addProperty(DCTerms.description, "This is an example for a Gaia-X Data Resource", "en")
-                 .addProperty(DCTerms.title, "Example Gaia-X Data Resource", "en")
+                 .addProperty(DCTerms.description, description, "en")
+                 .addProperty(DCTerms.title, title, "en")
                  .addProperty(model.createProperty(prefixes.get(Constants.PREF_GAX_TRUST_FRAMEWORK)+producedBy), model.createResource("https://piveau.io/set/resource/legal-person/some-legal-person-2"))
                  .addProperty(model.createProperty(prefixes.get(Constants.PREF_GAX_TRUST_FRAMEWORK)+exposedThrough), model.createResource("http://85.215.202.146:8282/"))
-                 // not exaclty as expected
                  .addProperty(model.createProperty(prefixes.get(Constants.PREF_GAX_TRUST_FRAMEWORK)+containsPII), model.createTypedLiteral("false", XSDDatatype.XSDboolean))
-                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+edcApiVersion), "1")
-                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+contractOfferId), "1:50f75a7a-5f81-4764-b2f9-ac258c3628e2")
+                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+predicateEdcApiVersion), edcApiVersion)
+                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+predicateContractOfferId), contractOfferId)
                  .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+predicateAssetId), assetId)
-                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+protocol), model.createResource(prefixes.get(Constants.PREF_POSSIBLE_X)+idsMultipart))
-                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+hasPolicy), objectPolicy)
+                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+predicateProtocol), model.createResource(prefixes.get(Constants.PREF_POSSIBLE_X)+predicateIdsMultipart))
+                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+predicateHasPolicy), objectPolicy)
                  .addProperty(DCAT.distribution, model.createResource("https://possible.fokus.fraunhofer.de/set/distribution/1"));
         subjectDistribution.addProperty(RDF.type, DCAT.distribution)
                 .addProperty(DCTerms.license, model.createResource("http://dcat-ap.de/def/licenses/gfdl"))
@@ -87,7 +90,7 @@ public class JenaExample {
         return new String(byteArrayOutputStream.toByteArray());
     }
 
-    public static void TestSendRequest() throws IOException {
+    /*public static void TestSendRequest() throws IOException {
          PossibleDataResource possibleDataResource = new PossibleDataResource("assetId", "h_test_friday_2");
          String payload = writeRDF(possibleDataResource.getAssetId());
         URL urlForGetRequest = new URL("https://possible.fokus.fraunhofer.de/api/hub/repo/catalogues/test-provider/datasets/origin?originalId="+possibleDataResource.getDatasetId());
@@ -127,4 +130,5 @@ public class JenaExample {
             throw new RuntimeException(e);
         }
     }
+    */
 }

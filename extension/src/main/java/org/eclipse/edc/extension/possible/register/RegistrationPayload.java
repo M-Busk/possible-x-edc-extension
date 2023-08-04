@@ -14,6 +14,8 @@
 
 package org.eclipse.edc.extension.possible.register;
 
+import org.eclipse.edc.extension.possible.rdf.JenaExample;
+
 public class RegistrationPayload {
     private final String edcApiVersion;
     private final String contractOfferId;
@@ -34,6 +36,8 @@ public class RegistrationPayload {
     }
 
     public String getBody() {
+        JenaExample jenaEx = new JenaExample();
+        String payload = jenaEx.writeRDF(edcApiVersion, contractOfferId, assetId, policyId, target, description, title);
 
         return "@prefix dcat:   <http://www.w3.org/ns/dcat#> .\r\n" + //
                 "@prefix dct:    <http://purl.org/dc/terms/> .\r\n" + //
