@@ -24,24 +24,16 @@ import java.util.HashMap;
 
 
 public class JenaExample {
-     // CONSTANTS
-     final String preDcat = "dcat";
-     final String preDct = "dct";
-     final String preXsd = "xsd";
-     final String preGaxCore = "gax-core";
-     final String preGaxTrust = "gax-trust-framework";
-     final String prePossibleX = "possible-x";
-
      public String testRDF() {
         Model model = ModelFactory.createDefaultModel();
 
         HashMap<String,String> prefixes = new HashMap<>();
-        prefixes.put(preDcat ,"http://www.w3.org/ns/dcat#");
-        prefixes.put(preDct,"http://purl.org/dc/terms/");
-        prefixes.put(preXsd,"http://www.w3.org/2001/XMLSchema#");
-        prefixes.put(preGaxCore,"http://w3id.org/gaia-x/core#");
-        prefixes.put(preGaxTrust,"http://w3id.org/gaia-x/gax-trust-framework#");
-        prefixes.put(prePossibleX,"http://w3id.org/gaia-x/possible-x#");
+        prefixes.put(Constants.PREF_DCAT ,"http://www.w3.org/ns/dcat#");
+        prefixes.put(Constants.PREF_DCT,"http://purl.org/dc/terms/");
+        prefixes.put(Constants.PREF_XSD,"http://www.w3.org/2001/XMLSchema#");
+        prefixes.put(Constants.PREF_GAX_CORE,"http://w3id.org/gaia-x/core#");
+        prefixes.put(Constants.PREF_GAX_TRUST_FRAMEWORK,"http://w3id.org/gaia-x/gax-trust-framework#");
+        prefixes.put(Constants.PREF_POSSIBLE_X,"http://w3id.org/gaia-x/possible-x#");
 
         // gax-trust-framework
         String dataResource  = "DataResource";
@@ -62,29 +54,29 @@ public class JenaExample {
          Resource subjectData = model.createResource("https://possible.fokus.fraunhofer.de/set/data/test-dataset");
          Resource subjectDistribution = model.createResource("https://possible.fokus.fraunhofer.de/set/distribution/1");
          Resource objectPolicy = model.createResource()
-                 .addProperty(RDF.type, model.createResource(prefixes.get(prePossibleX)+"Policy"))
-                 .addProperty(model.createProperty(prefixes.get(prePossibleX)+"policyType"), model.createProperty(prefixes.get(prePossibleX)+"Set"))
-                 .addProperty(model.createProperty(prefixes.get(prePossibleX)+"uid"), "231802-bb34-11ec-8422-0242ac120002")
-                 .addProperty(model.createProperty(prefixes.get(prePossibleX)+"hasPermissions"), model.createResource()
-                    .addProperty(RDF.type, model.createProperty(prefixes.get(prePossibleX)+"Permission"))
-                    .addProperty(model.createProperty(prefixes.get(prePossibleX)+"target"), assetId)
-                    .addProperty(model.createProperty(prefixes.get(prePossibleX)+"action"), model.createProperty(prefixes.get(prePossibleX)+"Use"))
-                    .addProperty(model.createProperty(prefixes.get(prePossibleX)+"edcType"), "dataspaceconnector:permission")
+                 .addProperty(RDF.type, model.createResource(prefixes.get(Constants.PREF_POSSIBLE_X)+"Policy"))
+                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+"policyType"), model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+"Set"))
+                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+"uid"), "231802-bb34-11ec-8422-0242ac120002")
+                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+"hasPermissions"), model.createResource()
+                    .addProperty(RDF.type, model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+"Permission"))
+                    .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+"target"), assetId)
+                    .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+"action"), model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+"Use"))
+                    .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+"edcType"), "dataspaceconnector:permission")
                  );
 
          subjectData.addProperty(RDF.type, DCAT.Dataset)
-                 .addProperty(RDF.type, model.createResource(prefixes.get(preGaxTrust)+dataResource))
+                 .addProperty(RDF.type, model.createResource(prefixes.get(Constants.PREF_GAX_TRUST_FRAMEWORK)+dataResource))
                  .addProperty(DCTerms.description, "This is an example for a Gaia-X Data Resource", "en")
                  .addProperty(DCTerms.title, "Example Gaia-X Data Resource", "en")
-                 .addProperty(model.createProperty(prefixes.get(preGaxTrust)+producedBy), model.createResource("https://piveau.io/set/resource/legal-person/some-legal-person-2"))
-                 .addProperty(model.createProperty(prefixes.get(preGaxTrust)+exposedThrough), model.createResource("http://85.215.202.146:8282/"))
+                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_GAX_TRUST_FRAMEWORK)+producedBy), model.createResource("https://piveau.io/set/resource/legal-person/some-legal-person-2"))
+                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_GAX_TRUST_FRAMEWORK)+exposedThrough), model.createResource("http://85.215.202.146:8282/"))
                  // not exaclty as expected
-                 .addProperty(model.createProperty(prefixes.get(preGaxTrust)+containsPII), model.createTypedLiteral("false", XSDDatatype.XSDboolean))
-                 .addProperty(model.createProperty(prefixes.get(prePossibleX)+edcApiVersion), "1")
-                 .addProperty(model.createProperty(prefixes.get(prePossibleX)+contractOfferId), "1:50f75a7a-5f81-4764-b2f9-ac258c3628e2")
-                 .addProperty(model.createProperty(prefixes.get(prePossibleX)+assetId), assetId)
-                 .addProperty(model.createProperty(prefixes.get(prePossibleX)+protocol), model.createResource(prefixes.get(prePossibleX)+idsMultipart))
-                 .addProperty(model.createProperty(prefixes.get(prePossibleX)+hasPolicy), objectPolicy)
+                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_GAX_TRUST_FRAMEWORK)+containsPII), model.createTypedLiteral("false", XSDDatatype.XSDboolean))
+                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+edcApiVersion), "1")
+                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+contractOfferId), "1:50f75a7a-5f81-4764-b2f9-ac258c3628e2")
+                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+assetId), assetId)
+                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+protocol), model.createResource(prefixes.get(Constants.PREF_POSSIBLE_X)+idsMultipart))
+                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+hasPolicy), objectPolicy)
                  .addProperty(DCAT.distribution, model.createResource("https://possible.fokus.fraunhofer.de/set/distribution/1"));
         subjectDistribution.addProperty(RDF.type, DCAT.distribution)
                 .addProperty(DCTerms.license, model.createResource("http://dcat-ap.de/def/licenses/gfdl"))
