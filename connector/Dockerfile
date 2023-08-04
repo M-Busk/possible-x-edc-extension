@@ -10,8 +10,8 @@ WORKDIR /app
 # Copy config
 COPY ./resources /resources
 # Copy jar
-COPY ./build/libs/dataspace-connector.jar /app
+COPY ./connector/build/libs/connector.jar /app
 
 ENV EDC_FS_CONFIG = $EDC_FS_CONFIG
 
-ENTRYPOINT java -jar dataspace-connector.jar
+ENTRYPOINT java -jar connector.jar
