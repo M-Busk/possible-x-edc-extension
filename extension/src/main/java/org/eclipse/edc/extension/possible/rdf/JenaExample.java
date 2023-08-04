@@ -5,13 +5,11 @@ import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
-import org.apache.jena.riot.RDFFormat;
 import org.apache.jena.vocabulary.DCAT;
 import org.apache.jena.vocabulary.DCTerms;
 import org.apache.jena.vocabulary.RDF;
 
 import java.io.BufferedReader;
-//import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -20,9 +18,8 @@ import java.net.URL;
 
 import java.util.HashMap;
 
-
 public class JenaExample {
-     public String testRDF() {
+     public static String writeRDF(String assetId) {
         Model model = ModelFactory.createDefaultModel();
 
         HashMap<String,String> prefixes = new HashMap<>();
@@ -41,7 +38,7 @@ public class JenaExample {
         // possible-x
         String edcApiVersion = "edcApiVersion";
         String contractOfferId = "contractOfferId";
-        String assetId = "assetId";
+        String predicateAssetId = "assetId";
         String protocol = "protocol";
         String idsMultipart = "IdsMultipart";
         String hasPolicy = "hasPolicy";
@@ -72,7 +69,7 @@ public class JenaExample {
                  .addProperty(model.createProperty(prefixes.get(Constants.PREF_GAX_TRUST_FRAMEWORK)+containsPII), model.createTypedLiteral("false", XSDDatatype.XSDboolean))
                  .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+edcApiVersion), "1")
                  .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+contractOfferId), "1:50f75a7a-5f81-4764-b2f9-ac258c3628e2")
-                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+assetId), assetId)
+                 .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+predicateAssetId), assetId)
                  .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+protocol), model.createResource(prefixes.get(Constants.PREF_POSSIBLE_X)+idsMultipart))
                  .addProperty(model.createProperty(prefixes.get(Constants.PREF_POSSIBLE_X)+hasPolicy), objectPolicy)
                  .addProperty(DCAT.distribution, model.createResource("https://possible.fokus.fraunhofer.de/set/distribution/1"));
@@ -87,95 +84,47 @@ public class JenaExample {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         RDFDataMgr.write(byteArrayOutputStream, model, Lang.TURTLE) ;
 
-        String outputMessageText = new String(byteArrayOutputStream.toByteArray());
-
-        try {
-                TestSendRequest(outputMessageText); 
-        } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
-        }
-
-        
-        
-        return outputMessageText;
+        return new String(byteArrayOutputStream.toByteArray());
     }
 
-
-    public void TestSendRequest(String payload) throws IOException {
-        URL urlForGetRequest = new URL("https://possible.fokus.fraunhofer.de/api/hub/repo/catalogues/test-provider/datasets/origin?originalId=h_test_friday_1");
+    public static void TestSendRequest() throws IOException {
+         PossibleDataResource possibleDataResource = new PossibleDataResource("assetId", "h_test_friday_2");
+         String payload = writeRDF(possibleDataResource.getAssetId());
+        URL urlForGetRequest = new URL("https://possible.fokus.fraunhofer.de/api/hub/repo/catalogues/test-provider/datasets/origin?originalId="+possibleDataResource.getDatasetId());
         String readLine = null;
-        /* String reqBody = """
-                @prefix dcat:   <http://www.w3.org/ns/dcat#> .
-                @prefix dct:    <http://purl.org/dc/terms/> .
-                @prefix gax-core: <http://w3id.org/gaia-x/core#> .
-                @prefix gax-trust-framework: <http://w3id.org/gaia-x/gax-trust-framework#> .
-                @prefix possible-x: <https://possible-gaia-x.de/ns/#> .
-                @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-                                
-                <https://possible.fokus.fraunhofer.de/set/data/test-dataset>
-                    a                                   dcat:Dataset ;
-                    a                                   gax-trust-framework:DataResource ;
-                    dct:description                     "This is an example for a Gaia-X Data Resource"@en ;
-                    dct:title                           "Example Gaia-X Data Resource"@en ;
-                    gax-trust-framework:producedBy      <https://piveau.io/set/resource/some-legal-person/some-legal-person-2> ;
-                    gax-trust-framework:exposedThrough  <http://85.215.202.146:8282/> ;
-                    gax-trust-framework:containsPII     "false"^^xsd:boolean ;
-                    possible-x:edcApiVersion            1;
-                    possible-x:contractOfferId          "1:50f75a7a-5f81-4764-b2f9-ac258c3628e2" ;
-                    possible-x:assetId                  "assetId" ;
-                    possible-x:protocol                 possible-x:IdsMultipart ;
-                    possible-x:hasPolicy                [
-                                                            a possible-x:Policy ;
-                                                            possible-x:policyType possible-x:Set ;
-                                                            possible-x:uid "231802-bb34-11ec-8422-0242ac120002" ;
-                                                            possible-x:hasPermissions [
-                                                                a possible-x:Permission ;
-                                                                possible-x:target "assetId" ;
-                                                                possible-x:action possible-x:Use ;
-                                                                possible-x:edcType "dataspaceconnector:permission" ;
-                                                            ] ;
-                                                        ] ;
-                    dcat:distribution                   <https://possible.fokus.fraunhofer.de/set/distribution/1> .
-                                
-                <https://possible.fokus.fraunhofer.de/set/distribution/1>
-                    a                               dcat:Distribution ;
-                    dct:license                     <http://dcat-ap.de/def/licenses/gfdl> ;
-                    dcat:accessURL                  <http://85.215.193.145:9192/api/v1/data/assets/test-document_company2> .
-                """; */
 
         String reqBody = payload;
-        HttpURLConnection conection = (HttpURLConnection) urlForGetRequest.openConnection();
-        conection.setRequestProperty("Content-Type","text/turtle");
-        conection.setRequestProperty("Authorization","Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib3BlcmF0b3IiXX19.lMkYKTViVNVPFH49ntdkruLe5EaWRUYt1YL-1Y7b0gc");
-        conection.setRequestMethod("PUT");
-        conection.setDoOutput(true);
+        HttpURLConnection connection = (HttpURLConnection) urlForGetRequest.openConnection();
+        connection.setRequestProperty("Content-Type","text/turtle");
+        connection.setRequestProperty("Authorization","Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib3BlcmF0b3IiXX19.lMkYKTViVNVPFH49ntdkruLe5EaWRUYt1YL-1Y7b0gc");
+        connection.setRequestMethod("PUT");
+        connection.setDoOutput(true);
         OutputStreamWriter out = new OutputStreamWriter(
-                conection.getOutputStream());
+                connection.getOutputStream());
         out.write(reqBody);
   
         out.close();
 
-
-        int responseCode = conection.getResponseCode();
-
-
-        if (responseCode == HttpURLConnection.HTTP_OK) {
+        int responseCode = connection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
             BufferedReader in = new BufferedReader(
-                    new InputStreamReader(conection.getInputStream()));
+                    new InputStreamReader(connection.getInputStream()));
             StringBuffer response = new StringBuffer();
             while ((readLine = in .readLine()) != null) {
                 response.append(readLine);
             } in .close();
             // print result
-            //monitor.info("Response"+ response.toString());
             System.out.println("JSON String Result " + response.toString());
-
-            System.out.println("JSON String Result " + response.toString());
-            //GetAndPost.POSTRequest(response.toString());
         } else {
-            //monitor.info("Not WORKED"+responseCode);
-                System.out.println("Not WORKED "+responseCode);
+            System.out.println("Not WORKED "+responseCode);
         }
     }
 
+    public static void main(String[] args) {
+        try {
+            TestSendRequest();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
