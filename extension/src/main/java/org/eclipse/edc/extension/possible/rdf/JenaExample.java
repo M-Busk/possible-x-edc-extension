@@ -10,10 +10,8 @@ import org.apache.jena.vocabulary.DCAT;
 import org.apache.jena.vocabulary.DCTerms;
 import org.apache.jena.vocabulary.RDF;
 
-//import org.eclipse.edc.spi.monitor.Monitor;
-
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
+//import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
