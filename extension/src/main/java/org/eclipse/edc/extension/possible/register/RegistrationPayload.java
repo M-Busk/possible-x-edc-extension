@@ -39,6 +39,8 @@ public class RegistrationPayload {
         JenaExample jenaEx = new JenaExample();
         String payload = jenaEx.writeRDF(edcApiVersion, contractOfferId, assetId, policyId, target, description, title);
 
+        return payload;
+/*
         return "@prefix dcat:   <http://www.w3.org/ns/dcat#> .\r\n" + //
                 "@prefix dct:    <http://purl.org/dc/terms/> .\r\n" + //
                 "@prefix gax-core: <http://w3id.org/gaia-x/core#> .\r\n" + //
@@ -74,6 +76,7 @@ public class RegistrationPayload {
                 "<https://possible.fokus.fraunhofer.de/set/distribution/1>\r\n" + //
                 "    a                               dcat:Distribution ;\r\n" + //
                 "    dct:license                     <http://dcat-ap.de/def/licenses/gfdl> ;\r\n" + //
-                "    dcat:accessURL                  <http://85.215.193.145:9192/api/v1/data/assets/test-document_company2> .\r\n"; 
+                "    dcat:accessURL                  <http://85.215.193.145:9192/api/v1/data/assets/test-document_company2> .\r\n";
+        */
     }
 }
