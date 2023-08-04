@@ -10,7 +10,7 @@ WORKDIR /app
 # Copy config
 COPY ./resources /resources
 # Copy jar
-COPY ../connector/build/libs/connector.jar /app
+COPY ./build/libs/connector.jar /app
 
 ENV EDC_FS_CONFIG = $EDC_FS_CONFIG
 
