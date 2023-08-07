@@ -8,19 +8,11 @@ import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.vocabulary.DCAT;
 import org.apache.jena.vocabulary.DCTerms;
 import org.apache.jena.vocabulary.RDF;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import java.util.HashMap;
 
-public class JenaExample {
+public class JenaHandler {
 
-    public JenaExample() {
+    public JenaHandler() {
     }
 
     public String writeRDF(String edcApiVersion, String contractOfferId, String assetId, String policyId, String target, String description, String title) {
@@ -89,46 +81,4 @@ public class JenaExample {
 
         return new String(byteArrayOutputStream.toByteArray());
     }
-
-    /*public static void TestSendRequest() throws IOException {
-         PossibleDataResource possibleDataResource = new PossibleDataResource("assetId", "h_test_friday_2");
-         String payload = writeRDF(possibleDataResource.getAssetId());
-        URL urlForGetRequest = new URL("https://possible.fokus.fraunhofer.de/api/hub/repo/catalogues/test-provider/datasets/origin?originalId="+possibleDataResource.getDatasetId());
-        String readLine = null;
-
-        String reqBody = payload;
-        HttpURLConnection connection = (HttpURLConnection) urlForGetRequest.openConnection();
-        connection.setRequestProperty("Content-Type","text/turtle");
-        connection.setRequestProperty("Authorization","Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib3BlcmF0b3IiXX19.lMkYKTViVNVPFH49ntdkruLe5EaWRUYt1YL-1Y7b0gc");
-        connection.setRequestMethod("PUT");
-        connection.setDoOutput(true);
-        OutputStreamWriter out = new OutputStreamWriter(
-                connection.getOutputStream());
-        out.write(reqBody);
-  
-        out.close();
-
-        int responseCode = connection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(connection.getInputStream()));
-            StringBuffer response = new StringBuffer();
-            while ((readLine = in .readLine()) != null) {
-                response.append(readLine);
-            } in .close();
-            // print result
-            System.out.println("JSON String Result " + response.toString());
-        } else {
-            System.out.println("Not WORKED "+responseCode);
-        }
-    }
-
-    public static void main(String[] args) {
-        try {
-            TestSendRequest();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    */
 }

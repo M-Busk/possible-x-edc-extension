@@ -14,7 +14,7 @@
 
 package org.eclipse.edc.extension.possible.register;
 
-import org.eclipse.edc.extension.possible.rdf.JenaExample;
+import org.eclipse.edc.extension.possible.rdf.JenaHandler;
 
 public class RegistrationPayload {
     private final String edcApiVersion;
@@ -36,8 +36,8 @@ public class RegistrationPayload {
     }
 
     public String getBody() {
-        JenaExample jenaEx = new JenaExample();
-        String payload = jenaEx.writeRDF(edcApiVersion, contractOfferId, assetId, policyId, target, description, title);
+        JenaHandler jenaHandler = new JenaHandler();
+        String payload = jenaHandler.writeRDF(edcApiVersion, contractOfferId, assetId, policyId, target, description, title);
 
         return payload;
 /*
