@@ -27,6 +27,10 @@ repositories {
     }
 	maven {
 		url = uri("https://maven.pkg.github.com/Digital-Ecosystems/edc-ionos-s3/")
+		credentials {
+			username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME_GITHUB")
+			password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN_GITHUB")
+		}
 	}
 	
 	mavenLocal()
@@ -76,12 +80,12 @@ dependencies {
 	implementation("${edcGroup}:data-plane-selector-client:${edcVersion}")
 
 	//IONOS
-//	implementation ("com.ionoscloud.edc:provisioning-ionos-s3:0.0.3-SNAPSHOT")
-//	implementation ("com.ionoscloud.edc:data-plane-ionos-s3:0.0.3-SNAPSHOT")
+	implementation ("com.ionoscloud.edc:provisioning-ionos-s3:0.0.3-SNAPSHOT")
+	implementation ("com.ionoscloud.edc:data-plane-ionos-s3:0.0.3-SNAPSHOT")
 
 
 	//implementation(fileTree(mapOf("dir" to "../libs", "include" to listOf("*.jar"))))
-	runtimeOnly(fileTree("../libs") { include("*.jar") })
+	//runtimeOnly(fileTree("../libs") { include("*.jar") })
 
 	implementation("de.fraunhofer.iais.eis.ids.infomodel:java:${fraunhoferVersion}")
 }

@@ -35,6 +35,9 @@ jobs:
           buildkitd-flags: --debug
 
       - name: Prepare required files
+        env:
+          USERNAME_GITHUB: ${{ github.actor }}
+          TOKEN_GITHUB: ${{ secrets.GITHUB_TOKEN }}
         run: sh ./gradlew clean build
 
       - name: Docker "connector" meta
