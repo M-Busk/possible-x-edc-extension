@@ -83,10 +83,6 @@ dependencies {
 	implementation ("com.ionoscloud.edc:provisioning-ionos-s3:0.0.3-SNAPSHOT")
 	implementation ("com.ionoscloud.edc:data-plane-ionos-s3:0.0.3-SNAPSHOT")
 
-
-	//implementation(fileTree(mapOf("dir" to "../libs", "include" to listOf("*.jar"))))
-	//runtimeOnly(fileTree("../libs") { include("*.jar") })
-
 	implementation("de.fraunhofer.iais.eis.ids.infomodel:java:${fraunhoferVersion}")
 }
 
