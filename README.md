@@ -31,15 +31,15 @@ export TOKEN_GITHUB=<YOUR TOKEN>
 
 - Open the `connector/resources/config.properties` file and edit the following fields:  
 
-| Field name                      | Description                                                      |
-|---------------------------------|------------------------------------------------------------------|
-| `possible.catalog.jwt.token`    | Authorization token to access the Possible-X Catalog     |
+| Field name                      | Description                                                |
+|---------------------------------|------------------------------------------------------------|
+| `possible.catalog.jwt.token`    | Authorization token to access the Possible-X Catalog       |
 | `possible.catalog.endpoint`     | Endpoint of the Possible-X Catalog for the SD registration |
-| `possible.connector.edcVersion` | Version of the Connector  |
-| `edc.ionos.access.key`    | IONOS Access Key Id to access S3     |
-| `edc.ionos.secret.key`     | IONOS Secret Access Key to access S3 |
-| `edc.ionos.endpoint` | IONOS S3 Endpoint  |
-| `edc.ionos.token` | IONOS token to allow S3 provisioning  |
+| `possible.connector.edcVersion` | Version of the Connector                                   |
+| `edc.ionos.access.key`          | IONOS Access Key Id to access S3                           |
+| `edc.ionos.secret.key`          | IONOS Secret Access Key to access S3                       |
+| `edc.ionos.endpoint`            | IONOS S3 Endpoint                                          |
+| `edc.ionos.token`               | IONOS token to allow S3 provisioning                       |
 
 To know more the `IONOS S3 Extension` please check this [site](https://github.com/ionos-cloud/edc-ionos-s3).
 
