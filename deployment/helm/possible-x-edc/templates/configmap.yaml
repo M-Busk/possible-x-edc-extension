@@ -26,7 +26,7 @@ data:
     edc.vault.hashicorp.token={{ .Values.edc.vault.hashicorp.token }}
     edc.vault.hashicorp.timeout.seconds={{ .Values.edc.vault.hashicorp.timeout.seconds }}
     edc.ids.id={{ .Values.edc.ids.id }}
-    edc.dsp.callback.address={{ .Values.edc.dsp.callback.address }}:{{ .Values.web.http.protocol.port }}{{ .Values.web.http.protocol.path }}
+    edc.dsp.callback.address={{ .Values.edc.dsp.callback.address }}
     edc.receiver.http.endpoint={{ .Values.edc.receiver.http.endpoint }}/receiver/{{ .Values.edc.ids.id }}/callback
     edc.public.key.alias={{ .Values.edc.public.key.alias }}
-    edc.dataplane.token.validation.endpoint={{ .Values.edc.dataplane.token.validation.endpoint }}:{{ .Values.web.http.control.port }}{{ .Values.web.http.control.path }}/token
+    edc.dataplane.token.validation.endpoint={{ .Values.edc.dataplane.token.validation.endpoint }}{{ .Values.web.http.control.path }}/token
