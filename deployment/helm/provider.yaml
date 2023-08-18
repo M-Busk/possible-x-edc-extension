@@ -1,0 +1,4 @@
+edc:
+  vault:
+    hashicorp:
+      url: http://daiwai-posx-provider-vault:8200

@@ -17,7 +17,7 @@ EDC_VAULT_NAME="${EDC_NAMESPACE}-vault"
 kubectl delete namespace "${EDC_NAMESPACE}" || true
 kubectl create namespace "${EDC_NAMESPACE}"
 
-kubectl -n "${EDC_NAMESPACE}" create secret docker-registry creds \
+kubectl -n "${EDC_NAMESPACE}" create secret docker-registry github-registry-auth \
     --docker-server=ghcr.io \
     --docker-username=$GITHUB_USER \
     --docker-password=$GITHUB_TOKEN
@@ -44,12 +44,12 @@ kubectl exec -n "${EDC_NAMESPACE}" -it "${EDC_VAULT_NAME}-0" -- vault secrets en
 # Add secrets to Vault
 kubectl exec -n "${EDC_NAMESPACE}" -it "${EDC_VAULT_NAME}-0" -- vault kv put secret/edc.ionos.access.key content=$EDC_S3_ACCESS_KEY
 kubectl exec -n "${EDC_NAMESPACE}" -it "${EDC_VAULT_NAME}-0" -- vault kv put secret/edc.ionos.secret.key content=$EDC_S3_SECRET_KEY
-kubectl exec -n "${EDC_NAMESPACE}" -it "${EDC_VAULT_NAME}-0" -- vault kv put secret/edc.ionos.endpoint content=$EDC_IONOS_ENDPOINT
-kubectl exec -n "${EDC_NAMESPACE}" -it "${EDC_VAULT_NAME}-0" -- vault kv put secret/edc.ionos.token content=$EDC_IONOS_TOKEN
+kubectl exec -n "${EDC_NAMESPACE}" -it "${EDC_VAULT_NAME}-0" -- vault kv put secret/edc.ionos.endpoint content=$EDC_S3_ENDPOINT
+kubectl exec -n "${EDC_NAMESPACE}" -it "${EDC_VAULT_NAME}-0" -- vault kv put secret/edc.ionos.token content=$EDC_S3_IONOS_TOKEN
 kubectl exec -n "${EDC_NAMESPACE}" -it "${EDC_VAULT_NAME}-0" -- vault kv put secret/possible.catalog.jwt.token content=$EDC_CATALOG_JWT_TOKEN
 
 
-helm install -n "${EDC_NAMESPACE}" possible-x-edc possible-x-edc/
+helm install -n "${EDC_NAMESPACE}" -f provider.yaml possible-x-edc possible-x-edc/
 
 sleep 20
 

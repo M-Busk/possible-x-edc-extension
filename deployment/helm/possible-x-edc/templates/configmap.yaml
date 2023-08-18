@@ -20,8 +20,8 @@ data:
     edc.ionos.secret.key={{ .Values.edc.ionos.secretKey }}
     edc.ionos.endpoint={{ .Values.edc.ionos.endpoint }}
     edc.ionos.token={{ .Values.edc.ionos.token }}
-    edc.possible.catalog.endpoint={{ .Values.edc.possible.catalog.endpoint }}
-    edc.possible.catalog.jwt.token={{ .Values.edc.possible.catalog.jwt.token }}
+    possible.catalog.endpoint={{ .Values.possible.catalog.endpoint }}
+    possible.catalog.jwt.token={{ .Values.possible.catalog.jwt.token }}
     edc.vault.hashicorp.url={{ .Values.edc.vault.hashicorp.url }}
     edc.vault.hashicorp.token={{ .Values.edc.vault.hashicorp.token }}
     edc.vault.hashicorp.timeout.seconds={{ .Values.edc.vault.hashicorp.timeout.seconds }}

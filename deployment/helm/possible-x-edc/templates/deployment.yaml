@@ -58,13 +58,13 @@ spec:
             httpGet:
               path: /api/check/health
               port: api
-            initialDelaySeconds: 60
+            initialDelaySeconds: 20
             periodSeconds: 30
           readinessProbe:
             httpGet:
               path: /api/check/health
               port: api
-            initialDelaySeconds: 60
+            initialDelaySeconds: 20
             periodSeconds: 30
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

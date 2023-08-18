@@ -11,7 +11,7 @@ image:
   tag: "latest"
 
 imagePullSecrets:
-  - name: ""
+  - name: "github-registry-auth"
 
 nameOverride: ""
 fullnameOverride: ""
@@ -159,13 +159,6 @@ edc:
     accessKey: notnull
     secretKey: notnull
     token: notnull
-  possible:
-    catalog:
-      endpoint: https://possible.fokus.fraunhofer.de/api/hub/repo/catalogues/test-provider/datasets/origin
-      jwt:
-        token: notnull
-    connector:
-      edcVersion: 0.1.2
   dsp:
     callback:
       address: http://localhost
@@ -179,3 +172,10 @@ edc:
     token:
       validation:
         endpoint: http://localhost
+possible:
+  catalog:
+    endpoint: https://possible.fokus.fraunhofer.de/api/hub/repo/catalogues/test-provider/datasets/origin
+    jwt:
+      token: notnull
+  connector:
+    edcVersion: 0.1.2
