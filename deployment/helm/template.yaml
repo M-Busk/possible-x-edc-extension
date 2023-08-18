@@ -1,0 +1,49 @@
+edc:
+  ionos:
+    accessKey: ${EDC_S3_ACCESS_KEY}
+    endpoint: ${EDC_S3_ENDPOINT}
+    secretKey: ${EDC_S3_SECRET_KEY}
+    token: ${EDC_S3_IONOS_TOKEN}
+  vault:
+    hashicorp:
+      token: ${EDC_VAULT_ROOT_TOKEN}
+      url: ${EDC_VAULT_URL}
+  dataplane:
+    token:
+      validation:
+        endpoint: https://${EDC_HOST}
+  dsp:
+    callback:
+      address: https://${EDC_HOST}/protocol
+possible:
+  catalog:
+    jwt:
+      token: ${EDC_CATALOG_JWT_TOKEN}
+service:
+  type: ClusterIP
+ingress:
+  enabled: true
+  hosts:
+    - host: ${EDC_HOST}
+      paths:
+      - path: /api
+        pathType: Prefix
+        portNumber: 8181
+      - path: /management
+        pathType: Prefix
+        portNumber: 8182
+      - path: /protocol
+        pathType: Prefix
+        portNumber: 8281
+      - path: /public
+        pathType: Prefix
+        portNumber: 8282
+      - path: /control
+        pathType: Prefix
+        portNumber: 8283
+  tls:
+    - hosts:
+        - ${EDC_HOST}
+      secretName: ${EDC_TLS_SECRET_NAME}
+imagePullSecrets:
+  - name: ${EDC_IMAGE_PULL_SECRET_NAME}
