@@ -30,13 +30,22 @@ sleep 10
 kubectl wait --for=jsonpath='{.status.phase}'=Running pod "${EDC_VAULT_NAME}-0" -n "${EDC_NAMESPACE}" --timeout=120s
 
 # Initialize Vault
-kubectl exec -n "${EDC_NAMESPACE}" -it "${EDC_VAULT_NAME}-0" -- vault operator init -key-shares=1 -key-threshold=1 -format=json > vault-keys.json
+kubectl exec -n "${EDC_NAMESPACE}" -it "${EDC_VAULT_NAME}-0" -- vault operator init -key-shares=1 -key-threshold=1 -format=json > "${EDC_NAMESPACE}-vault-keys.json"
+
+EDC_VAULT_ROOT_TOKEN=$(cat "${EDC_NAMESPACE}-vault-keys.json" | jq -r '.root_token')
+
+echo "edc:
+  vault:
+    hashicorp:
+      url: http://${EDC_VAULT_NAME}:8200
+      token: ${EDC_VAULT_ROOT_TOKEN}" > "${EDC_NAMESPACE}.yaml"
+
 
 # Unseal Vault
-kubectl exec -n "${EDC_NAMESPACE}" -it "${EDC_VAULT_NAME}-0" -- vault operator unseal $(jq -r ".unseal_keys_b64[]" vault-keys.json)
+kubectl exec -n "${EDC_NAMESPACE}" -it "${EDC_VAULT_NAME}-0" -- vault operator unseal $(jq -r ".unseal_keys_b64[]" "${EDC_NAMESPACE}-vault-keys.json")
 
 # Login to Vault
-kubectl exec -n "${EDC_NAMESPACE}" -it "${EDC_VAULT_NAME}-0" -- vault login $(jq -r ".root_token" vault-keys.json)
+kubectl exec -n "${EDC_NAMESPACE}" -it "${EDC_VAULT_NAME}-0" -- vault login $(jq -r ".root_token" "${EDC_NAMESPACE}-vault-keys.json")
 
 # Enable KV secrets engine
 kubectl exec -n "${EDC_NAMESPACE}" -it "${EDC_VAULT_NAME}-0" -- vault secrets enable -version=2 -path=secret kv
@@ -49,7 +58,7 @@ kubectl exec -n "${EDC_NAMESPACE}" -it "${EDC_VAULT_NAME}-0" -- vault kv put sec
 kubectl exec -n "${EDC_NAMESPACE}" -it "${EDC_VAULT_NAME}-0" -- vault kv put secret/possible.catalog.jwt.token content=$EDC_CATALOG_JWT_TOKEN
 
 
-helm install -n "${EDC_NAMESPACE}" -f provider.yaml possible-x-edc possible-x-edc/
+helm install -n "${EDC_NAMESPACE}" -f "${EDC_NAMESPACE}.yaml" possible-x-edc possible-x-edc/
 
 sleep 20
 
