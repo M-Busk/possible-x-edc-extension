@@ -1,4 +1,0 @@
-edc:
-  vault:
-    hashicorp:
-      url: http://daiwai-posx-consumer-vault:8200
