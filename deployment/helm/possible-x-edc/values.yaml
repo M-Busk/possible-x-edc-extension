@@ -50,18 +50,47 @@ ingress:
   enabled: false
   className: ""
   annotations:
-    kubernetes.io/ingress.class: nginx
-    cert-manager.io/cluster-issuer: cluster-issuer-letsencrypt
     acme.cert-manager.io/http01-edit-in-place: "true"
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    cert-manager.io/cluster-issuer: cluster-issuer-letsencrypt
+    kubernetes.io/ingress.allow-http: "true"
+    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/affinity: cookie
+    nginx.ingress.kubernetes.io/proxy-body-size: 1024m
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
     nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
     nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    #nginx.ingress.kubernetes.io/cors-allow-origin: "https://possible.fokus.fraunhofer.de"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS, POST"
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "x-api-key, content-type"
+
   hosts:
-    - host: chart-example.local
+    - host: provider.possible-x.de
       paths:
-        - path: /
-          pathType: ImplementationSpecific
+        - path: /api
+          portNumber: 8181
+          pathType: Prefix
+
+        - path: /management
+          portNumber: 8182
+          pathType: Prefix
+
+        - path: /protocol
+          portNumber: 8281
+          pathType: Prefix
+
+        - path: /public
+          portNumber: 8282
+          pathType: Prefix
+
+        - path: /control
+          portNumber: 8283
+          pathType: Prefix
+
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:

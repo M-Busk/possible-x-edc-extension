@@ -1,0 +1,10 @@
+export EDC_S3_ACCESS_KEY=
+export EDC_S3_SECRET_KEY=
+export EDC_S3_ENDPOINT='s3-eu-central-1.ionoscloud.com'
+export EDC_S3_IONOS_TOKEN=
+
+export EDC_CATALOG_JWT_TOKEN=
+
+# Github Username and classic token with package:read scope
+export GITHUB_USER=
+export GITHUB_TOKEN=
