@@ -29,6 +29,16 @@ The POSSIBLE-X Extension can be deployed to a Kubernetes cluster using the Helm 
    ./dns.sh
    ./deploy.sh <EDC_ROLE> <EDC_NAMESPACE>
    ```
+### Remove Deployment
+
+1. Call the destroy script. This will remove the Helm chart and other resources and dynamically generated config files.
+
+   The script can be called without any parameters, in which case it will use the default values defined in the .config file. Alternatively, the script, like the deploy script, can be called with the following parameters:
+
+   ```bash
+   ./remove.sh <EDC_ROLE> <EDC_NAMESPACE> --delete-namespace
+   ```
+   If the third parameter is set to `--delete-namespace` the namespace will be deleted as well.
 
 ### Config Parameters
 
