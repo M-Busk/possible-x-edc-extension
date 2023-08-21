@@ -28,8 +28,7 @@ fi
 
 export EDC_VAULT_NAME="${EDC_NAMESPACE}-${EDC_ROLE}-vault"
 
-kubectl --kubeconfig=$KUBECONFIG_EDC delete namespace "${EDC_NAMESPACE}" || true
-kubectl --kubeconfig=$KUBECONFIG_EDC create namespace "${EDC_NAMESPACE}"
+kubectl --kubeconfig=$KUBECONFIG_EDC create namespace "${EDC_NAMESPACE}" || true
 
 if [[ $EDC_DISABLE_HASHI_VAULT ]] ; then
   EDC_VAULT_ROOT_TOKEN="VAULT_DISABLED"
