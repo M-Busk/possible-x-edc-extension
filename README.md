@@ -55,3 +55,12 @@ java -Dedc.fs.config=connector/resources/config.properties  -jar connector/build
 
 - Please follow the documentation of the `documentation` repository (LINK TBD).
 
+### Continuous Integration
+A Github Action Pipeline (Build and Deploy EDC) was implemented to build and deploy the Artifcats to the DEV environment
+
+The Pipeline Builds a docker container and deploys it to the IONOS Cloud PossibleX Kubernetes Cluster
+
+| Component | Namespace | URL                                |
+|-----------|-----------|------------------------------------|
+| Consumer  | dev-github-consumer          | https://consumer.dev.possible-x.de |
+| Provider  |        dev-github-provider   | https://provider.dev.possible-x.de |
