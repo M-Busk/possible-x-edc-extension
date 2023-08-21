@@ -2,7 +2,11 @@
 
 set -xe
 
+cd "$(dirname "$0")"
+
 source .config
+
+cd helm
 
 EDC_ROLE="${1:-$EDC_ROLE}"
 EDC_NAMESPACE="${2:-$EDC_NAMESPACE}"
@@ -80,3 +84,5 @@ rm -f ${EDC_HELM_VALUES} temp.yaml
 . temp.yaml
 
 helm install -n "${EDC_NAMESPACE}" -f "${EDC_HELM_VALUES}" "possible-x-edc-${EDC_ROLE}" possible-x-edc/
+
+cd ..
