@@ -1,11 +1,9 @@
-name: Create and publish Docker images
-
-on: [push]
-
+name: Build and Deploy EDC
+on:
+  workflow_dispatch:
 env:
   REGISTRY: ghcr.io
   NAMESPACE: POSSIBLE-X
-
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
@@ -48,12 +46,12 @@ jobs:
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
             ${{ github.sha }}
-#
-#      - uses: sigstore/cosign-installer@main
-#
-#      - name: Write signing key to disk
-#        run: echo "${{ secrets.SIGNING_SECRET }}" > cosign.key
-#
+      #
+      #      - uses: sigstore/cosign-installer@main
+      #
+      #      - name: Write signing key to disk
+      #        run: echo "${{ secrets.SIGNING_SECRET }}" > cosign.key
+      #
       - name: Build and push "connector"
         id: build_and_push_connector
         uses: docker/build-push-action@v4
@@ -63,9 +61,27 @@ jobs:
           push: true
           tags: ${{ steps.connector-meta.outputs.tags }}
           labels: ${{ steps.connector-meta.outputs.labels }}
-#      - name: Sign "connector" image
-#        run: |
-#          cosign sign -y --key cosign.key \
-#          ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/connector@${{ steps.build_and_push_connector.outputs.digest }}
-#        env:
-#          COSIGN_PASSWORD: ${{ secrets.SIGNING_SECRET_PASSWORD }}
+  #      - name: Sign "connector" image
+  #        run: |
+  #          cosign sign -y --key cosign.key \
+  #          ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/connector@${{ steps.build_and_push_connector.outputs.digest }}
+  #        env:
+  #          COSIGN_PASSWORD: ${{ secrets.SIGNING_SECRET_PASSWORD }}
+
+  deployment:
+    runs-on: 'ubuntu-latest'
+    needs: build-and-push-image
+    steps:
+      - name: 'Invoke Kubectl Provider'
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
+        with:
+          args: "set image deployment/${{vars.PROVIDER_DEPLOYMENT_NAME}} -n ${{ vars.PROVIDER_NS }} possible-x-edc=${{ env.REGISTRY }}/possible-x/connector:${{ github.sha }} "
+
+      - name: 'Invoke Kubectl Consumer'
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
+        with:
+          args: "set image deployment/${{vars.CONSUMER_DEPLOYMENT_NAME}} -n ${{ vars.CONSUMER_NS }} possible-x-edc=${{ env.REGISTRY }}/possible-x/connector:${{ github.sha }} "
