@@ -26,6 +26,7 @@ The POSSIBLE-X Extension can be deployed to a Kubernetes cluster using the Helm 
    The script can be called without any parameters, in which case it will use the default values defined in the .config file. Alternatively, the script can be called with the following parameters:
 
    ```bash
+   ./dns.sh
    ./deploy.sh <EDC_ROLE> <EDC_NAMESPACE>
    ```
 
