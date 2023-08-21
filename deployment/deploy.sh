@@ -43,7 +43,7 @@ else
   # Initialize Vault
   kubectl --kubeconfig=$KUBECONFIG_EDC exec -n "${EDC_NAMESPACE}" -it "${EDC_VAULT_NAME}-0" -- vault operator init -key-shares=1 -key-threshold=1 -format=json > "${EDC_VAULT_NAME}-keys.json"
 
-  EDC_VAULT_ROOT_TOKEN=$(cat "${EDC_VAULT_NAME}-vault-keys.json" | jq -r '.root_token')
+  EDC_VAULT_ROOT_TOKEN=$(cat "${EDC_VAULT_NAME}-keys.json" | jq -r '.root_token')
   export EDC_VAULT_URL="http://${EDC_VAULT_NAME}:8200"
 
   # Unseal Vault
