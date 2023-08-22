@@ -5,6 +5,8 @@ on:
       - opened
       - reopened
       - review_requested
+  push:
+    branches: ["main"]
 
 #  workflow_dispatch:
 env:

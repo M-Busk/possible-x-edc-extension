@@ -1,0 +1,37 @@
+# The "role" of the EDC instance e.g. consumer or provider
+# This value is also used for some names of resources in the kubernetes cluster
+# e.g.
+#   - the Helm release name is possible-x-edc-<EDC_ROLE>
+#   - the name of the tls secret is <EDC_ROLE>-tls
+#   - the name of the imagePullSecrets is <EDC_ROLE>github-registry-auth
+export EDC_ROLE=
+
+# The kubernetes namespace of the EDC instance
+export EDC_NAMESPACE=
+
+# DNS configuration
+export USE_IONOS_DNS=True           # set this to 'True' if you want the script to configure DNS zone and records
+# export IONOS_DNS_ZONE_ID=''       # set this if the zone id is known/exists
+export DNS_ZONE=possible-x.de       # should be the domain/subdomain of the EDC instance
+export DNS_A_RECORD=                # A-record, usually 'consumer' or 'provider'
+export EDC_HOST="${DNS_A_RECORD}.${DNS_ZONE}"
+
+# Auth for the IONOS S3 storage
+export EDC_S3_ENDPOINT='s3-eu-central-1.ionoscloud.com'
+export EDC_S3_ACCESS_KEY=
+export EDC_S3_SECRET_KEY=
+export DCD_IONOS_TOKEN=
+
+# Auth for the Possible Catalog
+export EDC_CATALOG_JWT_TOKEN=
+
+# Github Username and classic token with package:read scope for the Github Package Registry
+export GITHUB_USER=
+export GITHUB_TOKEN=
+
+# Disable the Hashicorp Vault integration
+# TODO: Remove this flag once the Hashicorp Vault integration is ready
+export EDC_DISABLE_HASHI_VAULT=true
+
+# Path to the KUBECONFIG for the cluster where EDC is deployed
+KUBECONFIG_EDC=$KUBECONFIG
