@@ -13,8 +13,8 @@ EDC_NAMESPACE="${2:-$EDC_NAMESPACE}"
 
 # print usage if no argument is provided
 if [[ -z $EDC_ROLE || -z $EDC_NAMESPACE ]]; then
-    echo "Usage: ./destroy.sh <EDC_ROLE> <EDC_NAMESPACE> --delete-namespace"
-    echo "e.g ./destroy.sh consumer possible-x-edc-consumer"
+    echo "Usage: ./remove.sh <EDC_ROLE> <EDC_NAMESPACE> --delete-namespace"
+    echo "e.g ./remove.sh consumer possible-x-edc-consumer"
     echo "Or set the EDC_ROLE and EDC_NAMESPACE environment variables"
     echo "If --delete-namespace is passed as the 3rd param, the namespace is deleted as well"
     exit 1
