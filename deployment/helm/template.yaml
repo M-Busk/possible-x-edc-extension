@@ -3,7 +3,7 @@ edc:
     accessKey: ${EDC_S3_ACCESS_KEY}
     endpoint: ${EDC_S3_ENDPOINT}
     secretKey: ${EDC_S3_SECRET_KEY}
-    token: ${EDC_S3_IONOS_TOKEN}
+    token: ${DCD_IONOS_TOKEN}
   vault:
     hashicorp:
       token: ${EDC_VAULT_ROOT_TOKEN}
