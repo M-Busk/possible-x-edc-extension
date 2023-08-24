@@ -15,6 +15,6 @@ public final class Constants {
     public static final String PREF_GAX_TRUST_FRAMEWORK = "gax-trust-framework";
     public static final String PREF_GAX_TRUST_FRAMEWORK_URI = "http://w3id.org/gaia-x/gax-trust-framework#";
     public static final String PREF_POSSIBLE_X = "possible-x";
-    public static final String PREF_POSSIBLE_X_URI = "http://w3id.org/gaia-x/possible-x#";
+    public static final String PREF_POSSIBLE_X_URI = "https://possible-gaia-x.de/ns/#";
 
 }
