@@ -60,7 +60,7 @@ A Github Action Pipeline (Build and Deploy EDC) was implemented to build and dep
 
 The Pipeline Builds a docker container and deploys it to the IONOS Cloud PossibleX Kubernetes Cluster
 
-| Component | Namespace | URL                                |
-|-----------|-----------|------------------------------------|
-| Consumer  | dev-github-consumer          | https://consumer.dev.possible-x.de |
-| Provider  |        dev-github-provider   | https://provider.dev.possible-x.de |
+| Component | Namespace              | URL                                  |
+|-----------|------------------------|--------------------------------------|
+| Consumer  | dev-github-consumer    | https://consumer.dev.possible-x.de   |
+| Provider  | dev-github-provider    | https://provider.dev.possible-x.de   |
