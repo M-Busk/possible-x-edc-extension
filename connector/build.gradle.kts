@@ -80,10 +80,10 @@ dependencies {
 	implementation("${edcGroup}:data-plane-selector-client:${edcVersion}")
 
 	//IONOS
-	implementation ("com.ionoscloud.edc:provisioning-ionos-s3:0.0.3-SNAPSHOT")
-	implementation ("com.ionoscloud.edc:data-plane-ionos-s3:0.0.3-SNAPSHOT")
+	//implementation ("com.ionoscloud.edc:provision-ionos-s3:v2.2.0")
+	//implementation ("com.ionoscloud.edc:data-plane-ionos-s3:v2.2.0")
 
-	implementation("de.fraunhofer.iais.eis.ids.infomodel:java:${fraunhoferVersion}")
+	//implementation("de.fraunhofer.iais.eis.ids.infomodel:java:${fraunhoferVersion}")
 }
 
 repositories {
