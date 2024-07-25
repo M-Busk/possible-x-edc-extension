@@ -50,34 +50,43 @@ val fraunhoferVersion: String by project
 
 dependencies {
 	implementation("${edcGroup}:boot:${edcVersion}")
-	
-    implementation("${edcGroup}:control-plane-core:${edcVersion}")
-	
+	implementation("${edcGroup}:connector-core:${edcVersion}")
+
 	implementation("${edcGroup}:api-observability:${edcVersion}")
-	
 	implementation("${edcGroup}:configuration-filesystem:${edcVersion}")
 
 	implementation("${edcGroup}:http:${edcVersion}")
-	implementation("${edcGroup}:dsp:${edcVersion}")	
-	
-	implementation("${edcGroup}:auth-tokenbased:${edcVersion}")	
 
-    implementation("$edcGroup:management-api:$edcVersion")
+	implementation("${edcGroup}:json-ld:${edcVersion}")
+	implementation("${edcGroup}:control-api-configuration:${edcVersion}")
+    implementation("${edcGroup}:control-plane-api-client:${edcVersion}")
+	implementation("${edcGroup}:control-plane-api:${edcVersion}")
+	implementation("${edcGroup}:control-plane-core:${edcVersion}")
+
+	implementation("${edcGroup}:dsp:${edcVersion}")
+
+	//implementation("${edcGroup}:auth-spi:${edcVersion}")
+	//implementation("${edcGroup}:core-spi:${edcVersion}")
+	//implementation("${edcGroup}:auth-tokenbased:${edcVersion}")
+
+    //implementation("$edcGroup:management-api:$edcVersion")
 
 	implementation("${edcGroup}:iam-mock:${edcVersion}")
 
-	implementation(project(":extension"))
- 
-	testImplementation ("${edcGroup}:junit:${edcVersion}")	
-	
-	
-	implementation("${edcGroup}:data-plane-selector-core:${edcVersion}")
+	//implementation(project(":extension"))
 
-	implementation("${edcGroup}:data-plane-client:${edcVersion}")
+	//testImplementation ("${edcGroup}:junit:${edcVersion}")
 
-	implementation("${edcGroup}:transfer-data-plane:${edcVersion}")
-	
-	implementation("${edcGroup}:data-plane-selector-client:${edcVersion}")
+
+	//implementation("${edcGroup}:data-plane-selector-core:${edcVersion}")
+
+	//implementation("${edcGroup}:data-plane-client:${edcVersion}")
+
+	//implementation("${edcGroup}:transfer-data-plane:${edcVersion}")
+
+	//implementation("${edcGroup}:data-plane-selector-client:${edcVersion}")
+
+
 
 	//IONOS
 	//implementation ("com.ionoscloud.edc:provision-ionos-s3:v2.2.0")

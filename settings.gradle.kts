@@ -31,4 +31,4 @@ dependencyResolutionManagement {
 
 include(":connector")
 
-include(":extension")
+//include(":extension")
