@@ -55,42 +55,38 @@ dependencies {
 	implementation("${edcGroup}:api-observability:${edcVersion}")
 	implementation("${edcGroup}:configuration-filesystem:${edcVersion}")
 
+	implementation("${edcGroup}:iam-mock:${edcVersion}")
 	implementation("${edcGroup}:http:${edcVersion}")
 
 	implementation("${edcGroup}:json-ld:${edcVersion}")
-	implementation("${edcGroup}:control-api-configuration:${edcVersion}")
+	//implementation("${edcGroup}:control-api-configuration:${edcVersion}")
     implementation("${edcGroup}:control-plane-api-client:${edcVersion}")
 	implementation("${edcGroup}:control-plane-api:${edcVersion}")
 	implementation("${edcGroup}:control-plane-core:${edcVersion}")
+	//implementation("${edcGroup}:control-plane-transfer:${edcVersion}")
 
 	implementation("${edcGroup}:dsp:${edcVersion}")
 
-	//implementation("${edcGroup}:auth-spi:${edcVersion}")
-	//implementation("${edcGroup}:core-spi:${edcVersion}")
-	//implementation("${edcGroup}:auth-tokenbased:${edcVersion}")
+	implementation("${edcGroup}:auth-tokenbased:${edcVersion}")
 
-    //implementation("$edcGroup:management-api:$edcVersion")
-
-	implementation("${edcGroup}:iam-mock:${edcVersion}")
+    implementation("${edcGroup}:management-api:${edcVersion}")
 
 	//implementation(project(":extension"))
 
 	//testImplementation ("${edcGroup}:junit:${edcVersion}")
+	implementation("${edcGroup}:data-plane-core:${edcVersion}")
+	implementation("${edcGroup}:data-plane-selector-core:${edcVersion}")
+	implementation("${edcGroup}:data-plane-selector-api:${edcVersion}")
+	implementation("${edcGroup}:data-plane-selector-client:${edcVersion}")
+	implementation("${edcGroup}:data-management-api:0.0.1-milestone-7")
+	implementation("${edcGroup}:data-plane-client:${edcVersion}")
 
-
-	//implementation("${edcGroup}:data-plane-selector-core:${edcVersion}")
-
-	//implementation("${edcGroup}:data-plane-client:${edcVersion}")
-
-	//implementation("${edcGroup}:transfer-data-plane:${edcVersion}")
-
-	//implementation("${edcGroup}:data-plane-selector-client:${edcVersion}")
-
-
+	implementation("${edcGroup}:transfer-data-plane:${edcVersion}")
+	//implementation("${edcGroup}:validator-data-address-http-data:${edcVersion}")
 
 	//IONOS
-	//implementation ("com.ionoscloud.edc:provision-ionos-s3:v2.2.0")
-	//implementation ("com.ionoscloud.edc:data-plane-ionos-s3:v2.2.0")
+	implementation ("com.ionoscloud.edc:provision-ionos-s3:v2.2.0")
+	implementation ("com.ionoscloud.edc:data-plane-ionos-s3:v2.2.0")
 
 	//implementation("de.fraunhofer.iais.eis.ids.infomodel:java:${fraunhoferVersion}")
 }
