@@ -59,23 +59,26 @@ jobs:
         with:
           context: ./connector
           file: ./connector/Dockerfile
-          push: false
+          push: true
           tags: ${{ steps.connector-meta.outputs.tags }}
           labels: ${{ steps.connector-meta.outputs.labels }}
-#  deployment:
-#    runs-on: 'ubuntu-latest'
-#    needs: build-and-push-image
-#    steps:
-#      - name: 'Invoke Kubectl Provider'
-#        uses: actions-hub/kubectl@master
-#        env:
-#          KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
-#        with:
-#          args: "set image deployment/${{vars.PROVIDER_DEPLOYMENT_NAME}} -n ${{ vars.PROVIDER_NS }} possible-x-edc=${{ env.REGISTRY }}/possible-x/connector:${{ github.sha }} "
-#
-#      - name: 'Invoke Kubectl Consumer'
-#        uses: actions-hub/kubectl@master
-#        env:
-#          KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
-#        with:
-#          args: "set image deployment/${{vars.CONSUMER_DEPLOYMENT_NAME}} -n ${{ vars.CONSUMER_NS }} possible-x-edc=${{ env.REGISTRY }}/possible-x/connector:${{ github.sha }} "
+  deploy-consumer:
+    runs-on: 'ubuntu-latest'
+    needs: build-and-push-image
+    steps:
+      - name: 'Invoke Kubectl Consumer'
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
+        with:
+          args: "set image deployment/${{vars.NEW_CONSUMER_DEPLOYMENT_NAME}} -n ${{ vars.NEW_CONSUMER_NS }} possible-x-edc=${{ env.REGISTRY }}/possible-x/connector:${{ github.sha }} "
+  deploy-provider:
+    runs-on: 'ubuntu-latest'
+    needs: build-and-push-image
+    steps:
+      - name: 'Invoke Kubectl Provider'
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
+        with:
+          args: "set image deployment/${{vars.NEW_PROVIDER_DEPLOYMENT_NAME}} -n ${{ vars.NEW_PROVIDER_NS }} possible-x-edc=${{ env.REGISTRY }}/possible-x/connector:${{ github.sha }} "
