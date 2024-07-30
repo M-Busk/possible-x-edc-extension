@@ -40,12 +40,6 @@ repositories {
 val javaVersion: String by project
 val edcGroup: String by project
 val edcVersion: String by project
-val okHttpVersion: String by project
-val rsApi: String by project
-val metaModelVersion: String by project
-val fraunhoferVersion: String by project
-
-
 
 
 dependencies {
@@ -77,12 +71,12 @@ dependencies {
 	implementation("${edcGroup}:data-plane-core:${edcVersion}")
 	implementation("${edcGroup}:data-plane-selector-core:${edcVersion}")
 	implementation("${edcGroup}:data-plane-selector-api:${edcVersion}")
-	implementation("${edcGroup}:data-plane-selector-client:${edcVersion}")
-	implementation("${edcGroup}:data-management-api:0.0.1-milestone-7")
+	//implementation("${edcGroup}:data-plane-selector-client:${edcVersion}")
+
 	implementation("${edcGroup}:data-plane-client:${edcVersion}")
 
 	implementation("${edcGroup}:transfer-data-plane:${edcVersion}")
-	//implementation("${edcGroup}:validator-data-address-http-data:${edcVersion}")
+	implementation("${edcGroup}:validator-data-address-http-data:${edcVersion}")
 
 	//IONOS
 	implementation ("com.ionoscloud.edc:provision-ionos-s3:v2.2.0")
