@@ -58,11 +58,8 @@ dependencies {
 	implementation("${edcGroup}:control-plane-api:${edcVersion}")
 	implementation("${edcGroup}:control-plane-core:${edcVersion}")
 	//implementation("${edcGroup}:control-plane-transfer:${edcVersion}")
-
 	implementation("${edcGroup}:dsp:${edcVersion}")
-
 	implementation("${edcGroup}:auth-tokenbased:${edcVersion}")
-
     implementation("${edcGroup}:management-api:${edcVersion}")
 
 	//implementation(project(":extension"))
