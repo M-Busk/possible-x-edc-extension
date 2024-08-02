@@ -71,7 +71,8 @@ dependencies {
 	implementation("${edcGroup}:data-plane-client:${edcVersion}")
 
 	implementation("${edcGroup}:transfer-data-plane:${edcVersion}")
-	//implementation("${edcGroup}:validator-data-address-http-data:${edcVersion}")
+	implementation("${edcGroup}:validator-data-address-http-data:${edcVersion}")
+	//implementation("${edcGroup}:json-ld:${edcVersion}")
 
 	//implementation("${edcGroup}:vault-hashicorp:${edcVersion}")
 	//implementation("${edcGroup}:asset-index-sql:${edcVersion}")
