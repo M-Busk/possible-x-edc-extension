@@ -67,6 +67,7 @@ dependencies {
 	implementation("${edcGroup}:data-plane-client:${edcVersion}")
 	implementation("${edcGroup}:data-plane-selector-core:${edcVersion}")
 	implementation("${edcGroup}:data-plane-selector-client:${edcVersion}")
+	implementation("${edcGroup}:data-plane-selector-api:${edcVersion}")
 
 	implementation("${edcGroup}:data-plane-client:${edcVersion}")
 
