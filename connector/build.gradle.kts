@@ -64,6 +64,8 @@ dependencies {
 
 
 	implementation("${edcGroup}:data-plane-core:${edcVersion}")
+	implementation("${edcGroup}:data-plane-api:${edcVersion}")
+	implementation("${edcGroup}:data-plane-http:${edcVersion}")
 	implementation("${edcGroup}:data-plane-client:${edcVersion}")
 	implementation("${edcGroup}:data-plane-selector-core:${edcVersion}")
 	implementation("${edcGroup}:data-plane-selector-client:${edcVersion}")
@@ -72,6 +74,7 @@ dependencies {
 	implementation("${edcGroup}:data-plane-client:${edcVersion}")
 
 	implementation("${edcGroup}:transfer-data-plane:${edcVersion}")
+	implementation("${edcGroup}:transfer-pull-http-dynamic-receiver:${edcVersion}")
 	implementation("${edcGroup}:validator-data-address-http-data:${edcVersion}")
 	//implementation("${edcGroup}:json-ld:${edcVersion}")
 
