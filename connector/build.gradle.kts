@@ -59,7 +59,7 @@ dependencies {
 	implementation("${edcGroup}:dsp:${edcVersion}")
 	implementation("${edcGroup}:auth-tokenbased:${edcVersion}")
     implementation("${edcGroup}:management-api:${edcVersion}")
-
+	implementation("${edcGroup}:data-plane-http:${edcVersion}")
 	//implementation(project(":extension"))
 
 
