@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: test
-        run: -|
+        run: |
         echo "HEADREF: ${GITHUB_HEAD_REF}"
         echo "HEAD: ${GITHUB_HEAD}"
         echo "REF: ${GITHUB_REF}"
