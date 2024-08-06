@@ -8,3 +8,5 @@ build
 
 **/.env
 /deployment/infra/
+
+.DS_Store
