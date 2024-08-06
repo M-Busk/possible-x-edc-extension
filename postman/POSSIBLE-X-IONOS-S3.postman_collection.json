@@ -1,0 +1,860 @@
+{
+	"info": {
+		"_postman_id": "d910e4bb-2440-49e3-9769-f4ac269ce692",
+		"name": "POSSIBLE-X",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26327398"
+	},
+	"item": [
+		{
+			"name": "(Provider) Check Health",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "password",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{PROVIDER_BASE_URL}}/api/check/health",
+					"host": [
+						"{{PROVIDER_BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"check",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Provider) Get all Assets",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "password",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v3/assets/request",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v3",
+						"assets",
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Provider) Create Asset",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"@context\": {\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n    },\n    \"@id\": \"{{ASSET_ID}}\",\n    \"properties\": {\n        \"name\": \"product description\",\n        \"contenttype\": \"application/json\"\n    },\n    \"dataAddress\": {\n        \"name\": \"device1-data.csv\",\n        \"bucketName\": \"dev-provider-edc-bucket-possible-31952746\",\n        \"container\": \"company1\",\n        \"blobName\": \"ssss.txt\",\n        \"storage\": \"s3-eu-central-2.ionoscloud.com\",\n        \"type\": \"IonosS3\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v3/assets",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v3",
+						"assets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Provider) Get Asset by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v3/assets/{{ASSET_ID}}",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v3",
+						"assets",
+						"{{ASSET_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Provider) Delete Asset by ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v3/assets/{{ASSET_ID}}",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v3",
+						"assets",
+						"{{ASSET_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Provider) Create Policy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\",\n    \"odrl\": \"http://www.w3.org/ns/odrl/2/\"\n  },\n  \"@id\": \"{{POLICY_ID}}\",\n  \"policy\": {\n    \"@context\": \"http://www.w3.org/ns/odrl.jsonld\",\n    \"@type\": \"Set\",\n    \"odrl:permission\": [],\n    \"odrl:prohibition\": [],\n    \"odrl:obligation\": []\n  }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v2/policydefinitions",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"policydefinitions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Provider) Get Policy by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v2/policydefinitions/{{POLICY_ID}}",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"policydefinitions",
+						"{{POLICY_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Provider) Get all Policies",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v2/policydefinitions/request",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"policydefinitions",
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Provider) Delete Policy by ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v2/policydefinitions/{{POLICY_ID}}",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"policydefinitions",
+						"{{POLICY_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Provider) Create Contract Definitiion",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"@context\": {\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n    },\n    \"@id\": \"{{CONTRACT_DEFINITION_ID}}\",\n    \"accessPolicyId\": \"{{POLICY_ID}}\",\n    \"contractPolicyId\": \"{{POLICY_ID}}\",\n    \"assetsSelector\": [\n        {\n            \"operandLeft\": \"https://w3id.org/edc/v0.0.1/ns/id\",\n            \"operator\": \"=\",\n            \"operandRight\": \"{{ASSET_ID}}\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v2/contractdefinitions",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"contractdefinitions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Provider) Get Contract Definition by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v2/contractdefinitions/{{CONTRACT_DEFINITION_ID}}",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"contractdefinitions",
+						"{{CONTRACT_DEFINITION_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Provider) Get all Contract Definitiions",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v2/contractdefinitions/request",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"contractdefinitions",
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Provider) Delete Contract Definition",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v2/contractdefinitions/{{CONTRACT_DEFINITION_ID}}",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"contractdefinitions",
+						"{{CONTRACT_DEFINITION_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Consumer) Check Health",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "password",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{CONSUMER_BASE_URL}}/api/check/health",
+					"host": [
+						"{{CONSUMER_BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"check",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Consumer) Query Catalog",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Query Catalog should contain asset\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var dataset = jsonData['dcat:dataset'];\r",
+							"    var offer = dataset.find(data => data['@id'] == pm.collectionVariables.get('ASSET_ID'));\r",
+							"    if(offer) {\r",
+							"      pm.collectionVariables.set(\"OFFER_ID\", offer['odrl:hasPolicy']['@id']);\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"counterPartyAddress\": \"https://provider.edc.dev.possible-x.de/protocol\",\r\n  \"protocol\": \"dataspace-protocol-http\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{CONSUMER_MANAGEMENT_URL}}/v2/catalog/request",
+					"host": [
+						"{{CONSUMER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"catalog",
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Consumer) Initiate Negotation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body matches string\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.collectionVariables.set(\"NEGOTIATION_ID\", jsonData['@id']);",
+							"",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"ContractRequest\",\n  \"counterPartyAddress\": \"{{PROVIDER_PROTOCOL_URL}}\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"consumerId\": \"consumer\",\n  \"providerId\": \"provider\",\n  \"policy\": {\n    \"@context\": \"http://www.w3.org/ns/odrl.jsonld\",\n    \"@id\": \"YXNkZmZmZg==:bWVpblRvbGxlc0lvbm9zQXNzZXQy:NTQ3MjEwZGQtZWEwYS00ODA1LWE1ZTMtMjk3OWVhMzRmZGM2\",\n     \"@type\": \"Set\",\n    \"permission\": [],\n    \"prohibition\": [],\n    \"obligation\": [],\n    \"target\": \"{{ASSET_ID}}\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{CONSUMER_MANAGEMENT_URL}}/v2/contractnegotiations",
+					"host": [
+						"{{CONSUMER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"contractnegotiations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Consumer) Get Negotation By ID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Negotiation State should be FINALIZED\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.state).to.equal(\"FINALIZED\");\r",
+							"    pm.collectionVariables.set(\"AGREEMENT_ID\", jsonData['contractAgreementId']);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{CONSUMER_MANAGEMENT_URL}}/v2/contractnegotiations/{{NEGOTIATION_ID}}",
+					"host": [
+						"{{CONSUMER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"contractnegotiations",
+						"{{NEGOTIATION_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Consumer) Get all Negotations",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{CONSUMER_MANAGEMENT_URL}}/v2/contractnegotiations/request",
+					"host": [
+						"{{CONSUMER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"contractnegotiations",
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Consumer) Cancel Negotation by ID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{CONSUMER_MANAGEMENT_URL}}/v2/contractnegotiations/{{NEGOTIATION_ID}}",
+					"host": [
+						"{{CONSUMER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"contractnegotiations",
+						"{{NEGOTIATION_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Consumer) Initiate Transfer",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body matches string\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.collectionVariables.set(\"TRANSFER_PROCESS_ID\", jsonData['@id']);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"@context\": {\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n    },\n    \"@type\": \"TransferRequestDto\",\n    \"connectorId\": \"provider\",\n    \"counterPartyAddress\": \"{{PROVIDER_PROTOCOL_URL}}\",\n    \"contractId\": \"290cfaf5-c5f2-481c-b5c7-4d3f0e93e7f8\",\n    \"assetId\": \"{{ASSET_ID}}\",\n    \"protocol\": \"dataspace-protocol-http\",\n    \"managedResources\": false,\n    \"dataDestination\": {\n        \"type\": \"IonosS3\",\n        \"storage\": \"s3-eu-central-2.ionoscloud.com\",\n        \"bucketName\": \"dev-consumer-edc-bucket-possible-31952746\",\n        \"path\": \"s3HatGeklappt/\",\n        \"keyName\": \"mykey\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{CONSUMER_MANAGEMENT_URL}}/v2/transferprocesses",
+					"host": [
+						"{{CONSUMER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"transferprocesses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Consumer) Get Transfer by ID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{CONSUMER_MANAGEMENT_URL}}/v2/transferprocesses/25cad842-e909-4296-a894-6694babda0bf",
+					"host": [
+						"{{CONSUMER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"transferprocesses",
+						"25cad842-e909-4296-a894-6694babda0bf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Consumer) Get all Transfers",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{CONSUMER_MANAGEMENT_URL}}/v2/transferprocesses/request",
+					"host": [
+						"{{CONSUMER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"transferprocesses",
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Consumer) Get Contract Agreements",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{CONSUMER_MANAGEMENT_URL}}/v2/contractagreements/request",
+					"host": [
+						"{{CONSUMER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"contractagreements",
+						"request"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "password",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "X-Api-Key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "CONSUMER_MANAGEMENT_URL",
+			"value": "http://localhost/bob/management"
+		},
+		{
+			"key": "PROVIDER_PROTOCOL_URL",
+			"value": "http://alice-controlplane:8084/api/v1/dsp"
+		},
+		{
+			"key": "PROVIDER_MANAGEMENT_URL",
+			"value": "https://provider.edc.dev.possible-x.de/management"
+		},
+		{
+			"key": "ASSET_ID",
+			"value": "meinTollesIonosAsset2",
+			"type": "default"
+		},
+		{
+			"key": "POLICY_ID",
+			"value": "aPolicy",
+			"type": "default"
+		},
+		{
+			"key": "CONTRACT_POLICY_ID",
+			"value": "1",
+			"type": "default"
+		},
+		{
+			"key": "ACCESS_POLICY_ID",
+			"value": "1",
+			"type": "default"
+		},
+		{
+			"key": "CONTRACT_DEFINITION_ID",
+			"value": "myContractDefinition",
+			"type": "default"
+		},
+		{
+			"key": "POLICY_BPN",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "OFFER_ID",
+			"value": "MQ==:MQ==:ZDdjMWEzNTUtYmY3My00M2M3LTljMjItZjgwMGY0MTA0MTU3",
+			"type": "string"
+		},
+		{
+			"key": "NEGOTIATION_ID",
+			"value": ""
+		},
+		{
+			"key": "AGREEMENT_ID",
+			"value": ""
+		},
+		{
+			"key": "TRANSFER_PROCESS_ID",
+			"value": ""
+		},
+		{
+			"key": "EDR_TRANSFER_PROCESS_ID",
+			"value": ""
+		},
+		{
+			"key": "EDR_AUTH_CODE",
+			"value": ""
+		},
+		{
+			"key": "BACKEND_SERVICE",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "PROVIDER_ID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "EDC_NAMESPACE",
+			"value": "https://w3id.org/edc/v0.0.1/ns/",
+			"type": "string"
+		},
+		{
+			"key": "TX_NAMESPACE",
+			"value": "https://w3id.org/tractusx/v0.0.1/ns/",
+			"type": "string"
+		},
+		{
+			"key": "CONSUMER_PROXY_URL",
+			"value": "http://localhost/bob/proxy",
+			"type": "string"
+		},
+		{
+			"key": "PROVIDER_PUBLIC_URL",
+			"value": "http://localhost:8181/api/public",
+			"type": "string"
+		}
+	]
+}
