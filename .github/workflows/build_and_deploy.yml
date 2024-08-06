@@ -52,7 +52,6 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/connector
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
-            type=raw,value=latest-${GITHUB_REF##*/},enable=true
             ${{ github.sha }}
       #
       #      - uses: sigstore/cosign-installer@main
