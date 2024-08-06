@@ -51,7 +51,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/connector
           tags: |
-            type=raw,value=latest-${{github.branch}},enable=true
+            type=raw,value=latest-${{GITHUB_HEAD_REF}},enable=true
             type=raw,value=latest,enable={{is_default_branch}}
             ${{ github.sha }}
       - name: Build and push "connector"
