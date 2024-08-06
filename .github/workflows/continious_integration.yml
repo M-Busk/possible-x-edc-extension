@@ -19,11 +19,6 @@ jobs:
       packages: write
 
     steps:
-      - name: test
-        run: |
-        echo "HEADREF: ${{ GITHUB_HEAD_REF }}"
-        echo "HEAD: ${GITHUB_HEAD}"
-        echo "REF: ${GITHUB_REF}"
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -56,7 +51,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/connector
           tags: |
-            type=raw,value=latest-${GITHUB_HEAD_REF},enable=true
+            type=raw,value=latest-${{github.ref_name }},enable=true
             type=raw,value=latest,enable={{is_default_branch}}
             ${{ github.sha }}
       - name: Build and push "connector"
