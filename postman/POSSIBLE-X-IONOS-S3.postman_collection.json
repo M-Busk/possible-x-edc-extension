@@ -388,7 +388,7 @@
 			"response": []
 		},
 		{
-			"name": "(Consumer) Initiate Negotation",
+			"name": "(Consumer) Initiate Negotiation",
 			"event": [
 				{
 					"listen": "test",
@@ -721,6 +721,26 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "(Consumer) Deprovision S3 Key",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{CONSUMER_MANAGEMENT_URL}}/v2/transferprocesses/101e12da-1cf0-45b5-bdf5-c182b6ec3abf/deprovision",
+					"host": [
+						"{{CONSUMER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"transferprocesses",
+						"101e12da-1cf0-45b5-bdf5-c182b6ec3abf",
+						"deprovision"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
@@ -773,27 +793,27 @@
 		},
 		{
 			"key": "ASSET_ID",
-			"value": "meinTollesIonosAsset2",
+			"value": "meinTollesIonosAsset3",
 			"type": "default"
 		},
 		{
 			"key": "POLICY_ID",
-			"value": "aPolicy",
+			"value": "aPolicy2",
 			"type": "default"
 		},
 		{
 			"key": "CONTRACT_POLICY_ID",
-			"value": "1",
+			"value": "2",
 			"type": "default"
 		},
 		{
 			"key": "ACCESS_POLICY_ID",
-			"value": "1",
+			"value": "2",
 			"type": "default"
 		},
 		{
 			"key": "CONTRACT_DEFINITION_ID",
-			"value": "myContractDefinition",
+			"value": "myContractDefinition2",
 			"type": "default"
 		},
 		{
