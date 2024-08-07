@@ -7,6 +7,14 @@ This document explains how to run an EDC with the `POSSIBLE-X` and the `IONOS S3
 - java 17
 - gradle
 
+## Examples
+For experimenting with the running EDC, some Postman/Insomnia collections were added to this repo at `postman/`:
+
+- `POSSIBLE-X-IONOS-S3.postman_collection.json` is a Postman collection with examples for performing a transfer from and to an IONOS S3 Bucket
+- `POSSIBLE-X.Insomnia_IONOS-S3.json` is an Insomnia collection with examples for performing a transfer from and to an IONOS S3 Bucket
+- `POSSIBLE-X.postman_collection.json` is a Postman collection with examples for performing a transfer from and to an HTTP API
+- `Test.postman_environment.json` is a Postman environment file which sets up the collections to interact with the POSSIBLE EDCs running in the IONOS cloud
+
 ## Steps
 ### Checkout the repo
 
