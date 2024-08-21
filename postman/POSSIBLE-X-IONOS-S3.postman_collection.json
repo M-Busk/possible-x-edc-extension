@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "96c435ca-7185-4616-b772-613d090029ef",
+		"_postman_id": "d910e4bb-2440-49e3-9769-f4ac269ce692",
 		"name": "POSSIBLE-X",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "29428267"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26327398"
 	},
 	"item": [
 		{
@@ -17,7 +17,17 @@
 						"type": "text"
 					}
 				],
-				"url": "{{PROVIDER_BASE_URL}}/api/check/health"
+				"url": {
+					"raw": "{{PROVIDER_BASE_URL}}/api/check/health",
+					"host": [
+						"{{PROVIDER_BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"check",
+						"health"
+					]
+				}
 			},
 			"response": []
 		},
@@ -33,7 +43,17 @@
 						"disabled": true
 					}
 				],
-				"url": "{{PROVIDER_MANAGEMENT_URL}}/v3/assets/request"
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v3/assets/request",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v3",
+						"assets",
+						"request"
+					]
+				}
 			},
 			"response": []
 		},
@@ -68,14 +88,23 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@id\": \"{{ASSET_ID}}\",\n  \"properties\": {\n    \"name\": \"product description\",\n    \"contenttype\": \"application/json\"\n  },\n  \"dataAddress\": {\n    \"type\": \"HttpData\",\n    \"name\": \"Test asset\",\n    \"baseUrl\": \"https://jsonplaceholder.typicode.com/users\",\n    \"proxyPath\": \"true\"\n  }\n}\n",
+					"raw": "{\n    \"@context\": {\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n    },\n    \"@id\": \"{{ASSET_ID}}\",\n    \"properties\": {\n        \"name\": \"product description\",\n        \"contenttype\": \"application/json\"\n    },\n    \"dataAddress\": {\n        \"name\": \"device1-data.csv\",\n        \"bucketName\": \"dev-provider-edc-bucket-possible-31952746\",\n        \"container\": \"company1\",\n        \"blobName\": \"ssss.txt\",\n        \"storage\": \"s3-eu-central-2.ionoscloud.com\",\n        \"type\": \"IonosS3\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
 					}
 				},
-				"url": "{{PROVIDER_MANAGEMENT_URL}}/v3/assets"
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v3/assets",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v3",
+						"assets"
+					]
+				}
 			},
 			"response": []
 		},
@@ -84,7 +113,17 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{PROVIDER_MANAGEMENT_URL}}/v3/assets/{{ASSET_ID}}"
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v3/assets/{{ASSET_ID}}",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v3",
+						"assets",
+						"{{ASSET_ID}}"
+					]
+				}
 			},
 			"response": []
 		},
@@ -93,7 +132,17 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": "{{PROVIDER_MANAGEMENT_URL}}/v3/assets/{{ASSET_ID}}"
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v3/assets/{{ASSET_ID}}",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v3",
+						"assets",
+						"{{ASSET_ID}}"
+					]
+				}
 			},
 			"response": []
 		},
@@ -111,7 +160,16 @@
 						}
 					}
 				},
-				"url": "{{PROVIDER_MANAGEMENT_URL}}/v2/policydefinitions"
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v2/policydefinitions",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"policydefinitions"
+					]
+				}
 			},
 			"response": []
 		},
@@ -120,7 +178,17 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{PROVIDER_MANAGEMENT_URL}}/v2/policydefinitions/{{POLICY_ID}}"
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v2/policydefinitions/{{POLICY_ID}}",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"policydefinitions",
+						"{{POLICY_ID}}"
+					]
+				}
 			},
 			"response": []
 		},
@@ -129,7 +197,17 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"url": "{{PROVIDER_MANAGEMENT_URL}}/v2/policydefinitions/request"
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v2/policydefinitions/request",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"policydefinitions",
+						"request"
+					]
+				}
 			},
 			"response": []
 		},
@@ -138,7 +216,17 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": "{{PROVIDER_MANAGEMENT_URL}}/v2/policydefinitions/{{POLICY_ID}}"
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v2/policydefinitions/{{POLICY_ID}}",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"policydefinitions",
+						"{{POLICY_ID}}"
+					]
+				}
 			},
 			"response": []
 		},
@@ -149,14 +237,23 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@id\": \"{{CONTRACT_DEFINITION_ID}}\",\n  \"accessPolicyId\": \"{{POLICY_ID}}\",\n  \"contractPolicyId\": \"{{POLICY_ID}}\",\n  \"assetsSelector\": []\n}\n",
+					"raw": "{\n    \"@context\": {\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n    },\n    \"@id\": \"{{CONTRACT_DEFINITION_ID}}\",\n    \"accessPolicyId\": \"{{POLICY_ID}}\",\n    \"contractPolicyId\": \"{{POLICY_ID}}\",\n    \"assetsSelector\": [\n        {\n            \"operandLeft\": \"https://w3id.org/edc/v0.0.1/ns/id\",\n            \"operator\": \"=\",\n            \"operandRight\": \"{{ASSET_ID}}\"\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
 					}
 				},
-				"url": "{{PROVIDER_MANAGEMENT_URL}}/v2/contractdefinitions"
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v2/contractdefinitions",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"contractdefinitions"
+					]
+				}
 			},
 			"response": []
 		},
@@ -165,7 +262,17 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{PROVIDER_MANAGEMENT_URL}}/v2/contractdefinitions/{{CONTRACT_DEFINITION_ID}}"
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v2/contractdefinitions/{{CONTRACT_DEFINITION_ID}}",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"contractdefinitions",
+						"{{CONTRACT_DEFINITION_ID}}"
+					]
+				}
 			},
 			"response": []
 		},
@@ -174,7 +281,17 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"url": "{{PROVIDER_MANAGEMENT_URL}}/v2/contractdefinitions/request"
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v2/contractdefinitions/request",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"contractdefinitions",
+						"request"
+					]
+				}
 			},
 			"response": []
 		},
@@ -183,7 +300,17 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": "{{PROVIDER_MANAGEMENT_URL}}/v2/contractdefinitions/{{CONTRACT_DEFINITION_ID}}"
+				"url": {
+					"raw": "{{PROVIDER_MANAGEMENT_URL}}/v2/contractdefinitions/{{CONTRACT_DEFINITION_ID}}",
+					"host": [
+						"{{PROVIDER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"contractdefinitions",
+						"{{CONTRACT_DEFINITION_ID}}"
+					]
+				}
 			},
 			"response": []
 		},
@@ -198,7 +325,17 @@
 						"type": "text"
 					}
 				],
-				"url": "{{CONSUMER_BASE_URL}}/api/check/health"
+				"url": {
+					"raw": "{{CONSUMER_BASE_URL}}/api/check/health",
+					"host": [
+						"{{CONSUMER_BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"check",
+						"health"
+					]
+				}
 			},
 			"response": []
 		},
@@ -236,12 +373,22 @@
 						}
 					}
 				},
-				"url": "{{CONSUMER_MANAGEMENT_URL}}/v2/catalog/request"
+				"url": {
+					"raw": "{{CONSUMER_MANAGEMENT_URL}}/v2/catalog/request",
+					"host": [
+						"{{CONSUMER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"catalog",
+						"request"
+					]
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "(Consumer) Initiate Negotation",
+			"name": "(Consumer) Initiate Negotiation",
 			"event": [
 				{
 					"listen": "test",
@@ -273,14 +420,23 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"ContractRequest\",\n  \"counterPartyAddress\": \"{{PROVIDER_PROTOCOL_URL}}\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"policy\": {\n    \"@context\": \"http://www.w3.org/ns/odrl.jsonld\",\n    \"@id\": \"MQ==:YXNzZXRJZA==:MTQ0ZmJmOTktNTY5Ny00Y2ZjLThmOTAtMjNjYzAzYzAzMmI2\",\n     \"@type\": \"Set\",\n    \"permission\": [],\n    \"prohibition\": [],\n    \"obligation\": [],\n    \"target\": \"{{ASSET_ID}}\"\n  }\n}",
+					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"ContractRequest\",\n  \"counterPartyAddress\": \"{{PROVIDER_PROTOCOL_URL}}\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"consumerId\": \"consumer\",\n  \"providerId\": \"provider\",\n  \"policy\": {\n    \"@context\": \"http://www.w3.org/ns/odrl.jsonld\",\n    \"@id\": \"YXNkZmZmZg==:bWVpblRvbGxlc0lvbm9zQXNzZXQy:NTQ3MjEwZGQtZWEwYS00ODA1LWE1ZTMtMjk3OWVhMzRmZGM2\",\n     \"@type\": \"Set\",\n    \"permission\": [],\n    \"prohibition\": [],\n    \"obligation\": [],\n    \"target\": \"{{ASSET_ID}}\"\n  }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
 					}
 				},
-				"url": "{{CONSUMER_MANAGEMENT_URL}}/v2/contractnegotiations"
+				"url": {
+					"raw": "{{CONSUMER_MANAGEMENT_URL}}/v2/contractnegotiations",
+					"host": [
+						"{{CONSUMER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"contractnegotiations"
+					]
+				}
 			},
 			"response": []
 		},
@@ -315,7 +471,17 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{CONSUMER_MANAGEMENT_URL}}/v2/contractnegotiations/{{NEGOTIATION_ID}}"
+				"url": {
+					"raw": "{{CONSUMER_MANAGEMENT_URL}}/v2/contractnegotiations/{{NEGOTIATION_ID}}",
+					"host": [
+						"{{CONSUMER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"contractnegotiations",
+						"{{NEGOTIATION_ID}}"
+					]
+				}
 			},
 			"response": []
 		},
@@ -344,7 +510,17 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"url": "{{CONSUMER_MANAGEMENT_URL}}/v2/contractnegotiations/request"
+				"url": {
+					"raw": "{{CONSUMER_MANAGEMENT_URL}}/v2/contractnegotiations/request",
+					"host": [
+						"{{CONSUMER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"contractnegotiations",
+						"request"
+					]
+				}
 			},
 			"response": []
 		},
@@ -375,7 +551,17 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"url": "{{CONSUMER_MANAGEMENT_URL}}/v2/contractnegotiations/{{NEGOTIATION_ID}}"
+				"url": {
+					"raw": "{{CONSUMER_MANAGEMENT_URL}}/v2/contractnegotiations/{{NEGOTIATION_ID}}",
+					"host": [
+						"{{CONSUMER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"contractnegotiations",
+						"{{NEGOTIATION_ID}}"
+					]
+				}
 			},
 			"response": []
 		},
@@ -411,14 +597,23 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"provider\",\n  \"counterPartyAddress\": \"{{PROVIDER_PROTOCOL_URL}}\",\n  \"contractId\": \"c991a0e2-1820-43fc-a709-bd8718fb6716\",\n  \"assetId\": \"{{ASSET_ID}}\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"transferType\": \"HttpData-PULL\",\n  \"dataDestination\": {\n    \"type\": \"HttpProxy\"\n  }\n}\n",
+					"raw": "{\n    \"@context\": {\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n    },\n    \"@type\": \"TransferRequestDto\",\n    \"connectorId\": \"provider\",\n    \"counterPartyAddress\": \"{{PROVIDER_PROTOCOL_URL}}\",\n    \"contractId\": \"290cfaf5-c5f2-481c-b5c7-4d3f0e93e7f8\",\n    \"assetId\": \"{{ASSET_ID}}\",\n    \"protocol\": \"dataspace-protocol-http\",\n    \"managedResources\": false,\n    \"dataDestination\": {\n        \"type\": \"IonosS3\",\n        \"storage\": \"s3-eu-central-2.ionoscloud.com\",\n        \"bucketName\": \"dev-consumer-edc-bucket-possible-31952746\",\n        \"path\": \"s3HatGeklappt/\",\n        \"keyName\": \"mykey\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
 					}
 				},
-				"url": "{{CONSUMER_MANAGEMENT_URL}}/v2/transferprocesses"
+				"url": {
+					"raw": "{{CONSUMER_MANAGEMENT_URL}}/v2/transferprocesses",
+					"host": [
+						"{{CONSUMER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"transferprocesses"
+					]
+				}
 			},
 			"response": []
 		},
@@ -449,7 +644,17 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{CONSUMER_MANAGEMENT_URL}}/v2/transferprocesses/63eb9c17-da6b-44ab-bcf2-23dfda8d5d9c"
+				"url": {
+					"raw": "{{CONSUMER_MANAGEMENT_URL}}/v2/transferprocesses/25cad842-e909-4296-a894-6694babda0bf",
+					"host": [
+						"{{CONSUMER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"transferprocesses",
+						"25cad842-e909-4296-a894-6694babda0bf"
+					]
+				}
 			},
 			"response": []
 		},
@@ -484,7 +689,17 @@
 					"mode": "urlencoded",
 					"urlencoded": []
 				},
-				"url": "{{CONSUMER_MANAGEMENT_URL}}/v2/transferprocesses/request"
+				"url": {
+					"raw": "{{CONSUMER_MANAGEMENT_URL}}/v2/transferprocesses/request",
+					"host": [
+						"{{CONSUMER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"transferprocesses",
+						"request"
+					]
+				}
 			},
 			"response": []
 		},
@@ -493,17 +708,55 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"url": "{{CONSUMER_MANAGEMENT_URL}}/v2/contractagreements/request"
+				"url": {
+					"raw": "{{CONSUMER_MANAGEMENT_URL}}/v2/contractagreements/request",
+					"host": [
+						"{{CONSUMER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"contractagreements",
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Consumer) Deprovision S3 Key",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{CONSUMER_MANAGEMENT_URL}}/v2/transferprocesses/101e12da-1cf0-45b5-bdf5-c182b6ec3abf/deprovision",
+					"host": [
+						"{{CONSUMER_MANAGEMENT_URL}}"
+					],
+					"path": [
+						"v2",
+						"transferprocesses",
+						"101e12da-1cf0-45b5-bdf5-c182b6ec3abf",
+						"deprovision"
+					]
+				}
 			},
 			"response": []
 		}
 	],
 	"auth": {
 		"type": "apikey",
-		"apikey": {
-			"value": "password",
-			"key": "X-Api-Key"
-		}
+		"apikey": [
+			{
+				"key": "value",
+				"value": "password",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "X-Api-Key",
+				"type": "string"
+			}
+		]
 	},
 	"event": [
 		{
@@ -536,31 +789,31 @@
 		},
 		{
 			"key": "PROVIDER_MANAGEMENT_URL",
-			"value": "https://provider.edc.dev.possible-x.de/api/v1/dsp"
+			"value": "https://provider.edc.dev.possible-x.de/management"
 		},
 		{
 			"key": "ASSET_ID",
-			"value": "assetId2",
+			"value": "meinTollesIonosAsset3",
 			"type": "default"
 		},
 		{
 			"key": "POLICY_ID",
-			"value": "aPolicy",
+			"value": "aPolicy2",
 			"type": "default"
 		},
 		{
 			"key": "CONTRACT_POLICY_ID",
-			"value": "1",
+			"value": "2",
 			"type": "default"
 		},
 		{
 			"key": "ACCESS_POLICY_ID",
-			"value": "1",
+			"value": "2",
 			"type": "default"
 		},
 		{
 			"key": "CONTRACT_DEFINITION_ID",
-			"value": "1",
+			"value": "myContractDefinition2",
 			"type": "default"
 		},
 		{
