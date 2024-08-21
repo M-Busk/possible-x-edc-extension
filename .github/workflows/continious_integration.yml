@@ -1,16 +1,12 @@
 name: Build and Deploy EDC to Cluster
 on:
-#  pull_request:
-#    types:
-#      - opened
-#      - reopened
-#      - review_requested
   push:
-    branches: ["develop"]
+    branches: ["develop", "main"]
   workflow_dispatch:
 env:
   REGISTRY: ghcr.io
   NAMESPACE: possible-x
+  K8S_NAMESPACE: ${{ github.ref == 'refs/heads/main' && 'mvd-001-demo' || 'edc-dev' }}
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
@@ -51,8 +47,8 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/connector
           tags: |
-            type=raw,value=latest-${{github.ref_name }},enable=true
-            type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main'}}
+            type=raw,value=latest-${{github.ref_name }},enable=${{ github.ref != 'refs/heads/main'}}
             ${{ github.sha }}
       - name: Build and push "connector"
         id: build_and_push_connector
@@ -72,7 +68,7 @@ jobs:
         env:
           KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
         with:
-          args: "set image deployment/${{vars.NEW_CONSUMER_DEPLOYMENT_NAME}} -n ${{ vars.NEW_CONSUMER_NS }} possible-x-edc=${{ env.REGISTRY }}/possible-x/connector:${{ github.sha }} "
+          args: "set image deployment/consumer-edc-possible-x-edc -n ${{ env.K8S_NAMESPACE }} possible-x-edc=${{ env.REGISTRY }}/${{ env.REGISTRY_NAMESPACE }}/connector:${{ github.sha }} "
   deploy-provider:
     runs-on: 'ubuntu-latest'
     needs: build-and-push-image
@@ -82,4 +78,4 @@ jobs:
         env:
           KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
         with:
-          args: "set image deployment/${{vars.NEW_PROVIDER_DEPLOYMENT_NAME}} -n ${{ vars.NEW_PROVIDER_NS }} possible-x-edc=${{ env.REGISTRY }}/possible-x/connector:${{ github.sha }} "
+          args: "set image deployment/provider-edc-possible-x-edc -n ${{ env.K8S_NAMESPACE }} possible-x-edc=${{ env.REGISTRY }}/${{ env.REGISTRY_NAMESPACE }}/connector:${{ github.sha }} "
