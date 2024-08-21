@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 env:
   REGISTRY: ghcr.io
-  NAMESPACE: possible-x
+  REGISTRY_NAMESPACE: possible-x
   K8S_NAMESPACE: ${{ github.ref == 'refs/heads/main' && 'mvd-001-demo' || 'edc-dev' }}
 jobs:
   build-and-push-image:
@@ -45,7 +45,7 @@ jobs:
         id: connector-meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/connector
+          images: ${{ env.REGISTRY }}/${{ env.REGISTRY_NAMESPACE }}/connector
           tags: |
             type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main'}}
             type=raw,value=latest-${{github.ref_name }},enable=${{ github.ref != 'refs/heads/main'}}
