@@ -43,43 +43,34 @@ val edcVersion: String by project
 
 
 dependencies {
-	implementation("${edcGroup}:boot:${edcVersion}")
-	implementation("${edcGroup}:connector-core:${edcVersion}")
 
+	implementation("${edcGroup}:boot:${edcVersion}")
+	implementation("${edcGroup}:control-plane-core:${edcVersion}")
+	implementation("${edcGroup}:control-plane-api:${edcVersion}")
+	implementation("${edcGroup}:control-plane-api-client:${edcVersion}")
 	implementation("${edcGroup}:api-observability:${edcVersion}")
 	implementation("${edcGroup}:configuration-filesystem:${edcVersion}")
 
-	implementation("${edcGroup}:iam-mock:${edcVersion}")
+	implementation("${edcGroup}:auth-tokenbased:${edcVersion}")
+	implementation("${edcGroup}:management-api:${edcVersion}")
+
+	//implementation("${edcGroup}:iam-mock:${edcVersion}")
+
+	implementation("${edcGroup}:oauth2-service:${edcVersion}")
+	implementation("${edcGroup}:oauth2-daps:${edcVersion}")
+	implementation("${edcGroup}:vault-filesystem:${edcVersion}")
+
+	implementation("${edcGroup}:dsp:${edcVersion}")
+	//file-transfer
+	implementation("${edcGroup}:data-plane-core:${edcVersion}")
+	implementation("${edcGroup}:data-plane-client:${edcVersion}")
+	implementation("${edcGroup}:data-plane-selector-client:${edcVersion}")
+	implementation("${edcGroup}:data-plane-selector-core:${edcVersion}")
+	implementation("${edcGroup}:transfer-data-plane:${edcVersion}")
+	implementation("${edcGroup}:data-plane-http:${edcVersion}")
 	implementation("${edcGroup}:http:${edcVersion}")
 
-	implementation("${edcGroup}:control-plane-api-client:${edcVersion}")
-	implementation("${edcGroup}:control-plane-api:${edcVersion}")
-	implementation("${edcGroup}:control-plane-core:${edcVersion}")
-	//implementation("${edcGroup}:control-plane-transfer:${edcVersion}")
-	implementation("${edcGroup}:dsp:${edcVersion}")
-	implementation("${edcGroup}:auth-tokenbased:${edcVersion}")
-    implementation("${edcGroup}:management-api:${edcVersion}")
-	implementation("${edcGroup}:data-plane-http:${edcVersion}")
-	//implementation(project(":extension"))
-
-
-	implementation("${edcGroup}:data-plane-core:${edcVersion}")
-	implementation("${edcGroup}:data-plane-api:${edcVersion}")
-	implementation("${edcGroup}:data-plane-http:${edcVersion}")
-	implementation("${edcGroup}:data-plane-client:${edcVersion}")
-	implementation("${edcGroup}:data-plane-selector-core:${edcVersion}")
-	implementation("${edcGroup}:data-plane-selector-client:${edcVersion}")
-	implementation("${edcGroup}:data-plane-selector-api:${edcVersion}")
-
-	implementation("${edcGroup}:data-plane-client:${edcVersion}")
-
-	implementation("${edcGroup}:transfer-data-plane:${edcVersion}")
-	implementation("${edcGroup}:transfer-pull-http-dynamic-receiver:${edcVersion}")
-	implementation("${edcGroup}:validator-data-address-http-data:${edcVersion}")
-	//implementation("${edcGroup}:json-ld:${edcVersion}")
-
-	//implementation("${edcGroup}:vault-hashicorp:${edcVersion}")
-	//implementation("${edcGroup}:asset-index-sql:${edcVersion}")
+	implementation(project(":policy-extension"))
 
 	//IONOS
 	implementation ("com.ionoscloud.edc:provision-ionos-s3:v2.2.0")
