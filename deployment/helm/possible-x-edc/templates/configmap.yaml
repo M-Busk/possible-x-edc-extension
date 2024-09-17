@@ -29,7 +29,7 @@ data:
     edc.dsp.callback.address={{ .Values.edc.dsp.callback.address }}
     edc.receiver.http.endpoint={{ .Values.edc.receiver.http.endpoint }}/receiver/{{ .Values.edc.ids.id }}/callback
     edc.public.key.alias={{ .Values.edc.public.key.alias }}
-    edc.dataplane.token.validation.endpoint={{ .Values.edc.dataplane.token.validation.endpoint }}{{ .Values.web.http.control.path }}/token
+    edc.dataplane.token.validation.endpoint={{ .Values.edc.dataplane.token.validation.endpoint }}
     edc.oauth.token.url={{ .Values.edc.oauth.token.url }}
     edc.oauth.certificate.alias={{ .Values.edc.oauth.certificate.alias }}
     edc.oauth.private.key.alias={{ .Values.edc.oauth.private.key.alias }}
