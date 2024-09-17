@@ -27,6 +27,24 @@ spec:
       serviceAccountName: {{ include "possible-x-edc.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: daps-init-container
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              echo "path: $DAPS_KEY_PATH"
+              echo "store: $DAPS_KEY_STORE"
+              if ! [ -d $(dirname $DAPS_KEY_PATH) ] ; then mkdir -p $(dirname $DAPS_KEY_PATH) ; else echo "exists!"; fi
+              echo "$DAPS_KEY_STORE" | base64 -d > $DAPS_KEY_PATH
+          volumeMounts:
+            - name: keystore
+              mountPath: /resources/keystore
+          env:
+            - name: DAPS_KEY_PATH
+              value: {{ .Values.edc.keystore.path }}
+            - name: DAPS_KEY_STORE
+              value: {{ .Values.edc.keystore.content }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -72,6 +90,8 @@ spec:
             - name: config
               mountPath: /resources/config.properties
               subPath: config.properties
+            - name: keystore
+              mountPath: resources/keystore
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -88,3 +108,5 @@ spec:
         - name: config
           configMap:
             name: {{ include "possible-x-edc.fullname" . }}-config
+        - name: keystore
+          emptyDir: {}
