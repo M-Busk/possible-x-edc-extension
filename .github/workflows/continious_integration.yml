@@ -29,7 +29,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - run: echo "$POSTGRES_USER, $POSTGRES_PASSWORD, "$POSTGRES_DB""
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
