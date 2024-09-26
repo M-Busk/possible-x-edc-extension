@@ -60,7 +60,7 @@ spec:
           - name: EDC_FS_CONFIG
             value: "/resources/config.properties"
           - name: EDC_VAULT
-            value: {{ .Values.edc.vault.path }}
+            value: {{ .Values.edc.vault.path | default "/resources/vault/vault.properties" }}
           ports:
             - name: api
               containerPort: {{ .Values.service.apiPort }}
