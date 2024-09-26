@@ -1,0 +1,13 @@
+
+{{- if .Values.persistence.db.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "possible-x-edc.fullname" . }}-postgres
+spec:
+  ports:
+  - port: 5432
+    name: postgres
+  selector:
+    app: {{ include "possible-x-edc.fullname" . }}-postgres
+{{- end }}

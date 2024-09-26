@@ -17,12 +17,12 @@ spec:
         app: {{ include "possible-x-edc.fullname" . }}-postgres
     spec:
       containers:
-      - name: {{ include "possible-x-edc.fullname" . }}-postgres
+      - name: postgres
         image: "{{ .Values.persistence.db.image.repository }}:{{ .Values.persistence.db.image.tag }}"
         imagePullPolicy: {{ .Values.persistence.db.image.pullPolicy }}
         ports:
         - containerPort: 5432
-          name: {{ include "possible-x-edc.fullname" . }}-postgres
+          name: postgres
         env:
         - name: POSTGRES_DB
           value: "{{ .Values.persistence.db.databaseName }}"
@@ -35,7 +35,7 @@ spec:
               key: POSTGRES_PASSWORD
         volumeMounts:
         - name: {{ include "possible-x-edc.fullname" . }}-postgres-storage
-          mountPath: /var/lib/postgresql/data
+          mountPath: /var/lib/postgresql
   volumeClaimTemplates:
   - metadata:
       name: {{ include "possible-x-edc.fullname" . }}-postgres-storage

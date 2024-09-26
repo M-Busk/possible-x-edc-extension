@@ -191,14 +191,3 @@ persistence:
     databaseName: "edc"
     databasePasswordSecretName: ""
     storageSize: 1Gi
-    pgAdmin:
-      enabled: false
-      pgAdminEmail: ""
-      pgAdminPasswordSecretName: ""
-      ingress:
-        enabled: false
-        className: nginx
-        hosts: []
-        tls:
-        - hosts: []
-          secretName: ""
