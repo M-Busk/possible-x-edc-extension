@@ -179,3 +179,26 @@ possible:
       token: notnull
   connector:
     edcVersion: 0.1.2
+
+persistence:
+  db:
+    enabled: false
+    image:
+      repository: postgres
+      pullPolicy: IfNotPresent
+      tag: latest
+    databaseUser: "admin"
+    databaseName: "edc"
+    databasePasswordSecretName: ""
+    storageSize: 1Gi
+    pgAdmin:
+      enabled: false
+      pgAdminEmail: ""
+      pgAdminPasswordSecretName: ""
+      ingress:
+        enabled: false
+        className: nginx
+        hosts: []
+        tls:
+        - hosts: []
+          secretName: ""

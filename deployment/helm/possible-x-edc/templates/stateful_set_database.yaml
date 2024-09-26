@@ -1,0 +1,47 @@
+{{- if .Values.persistence.db.enabled -}}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "possible-x-edc.fullname" . }}-postgres
+  labels:
+    app: {{ include "possible-x-edc.fullname" . }}-postgres
+spec:
+  serviceName: "{{ include "possible-x-edc.fullname" . }}-postgres"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "possible-x-edc.fullname" . }}-postgres
+  template:
+    metadata:
+      labels:
+        app: {{ include "possible-x-edc.fullname" . }}-postgres
+    spec:
+      containers:
+      - name: {{ include "possible-x-edc.fullname" . }}-postgres
+        image: "{{ .Values.persistence.db.image.repository }}:{{ .Values.persistence.db.image.tag }}"
+        imagePullPolicy: {{ .Values.persistence.db.image.pullPolicy }}
+        ports:
+        - containerPort: 5432
+          name: {{ include "possible-x-edc.fullname" . }}-postgres
+        env:
+        - name: POSTGRES_DB
+          value: "{{ .Values.persistence.db.databaseName }}"
+        - name: POSTGRES_USER
+          value: "{{ .Values.persistence.db.databaseUser }}"
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.persistence.db.databasePasswordSecretName }}
+              key: POSTGRES_PASSWORD
+        volumeMounts:
+        - name: {{ include "possible-x-edc.fullname" . }}-postgres-storage
+          mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+  - metadata:
+      name: {{ include "possible-x-edc.fullname" . }}-postgres-storage
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi
+{{- end }}
