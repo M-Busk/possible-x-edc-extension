@@ -79,13 +79,14 @@ dependencies {
 	implementation("${edcGroup}:policy-definition-store-sql:${edcVersion}")
 	implementation("${edcGroup}:policy-monitor-store-sql:${edcVersion}")
 	implementation("${edcGroup}:sql-lease:${edcVersion}")
-	
 	implementation("${edcGroup}:sql-pool-apache-commons:${edcVersion}")
-	
+	implementation("${edcGroup}:transaction-local:$edcVersion")
+	implementation("${edcGroup}:transaction-datasource-spi:$edcVersion")
+
 	implementation ("com.ionoscloud.edc:provision-ionos-s3:v2.2.0")
 	implementation ("com.ionoscloud.edc:data-plane-ionos-s3:v2.2.0")
 
-	implementation ("org.postgresql:postgresql:42.2.2")
+	implementation ("org.postgresql:postgresql:42.7.2")
 }
 
 repositories {
