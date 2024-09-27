@@ -1,0 +1,119 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgadmin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pgadmin
+  template:
+    metadata:
+      labels:
+        app: pgadmin
+    spec:
+      initContainers:
+      - name: init-pgadmin-config
+        image: busybox
+        command: ["/bin/sh", "-c"]
+        args: 
+        - |
+          echo '{
+              "Servers": {
+                "1": {
+                  "Name": "Consumer",
+                  "Group": "Servers",
+                  "Host": "consumer-edc-possible-x-edc-postgres.edc-dev",
+                  "Port": 5432,
+                  "MaintenanceDB": "edc",
+                  "Username": "admin",
+                  "Password": "'$POSTGRES_PASSWORD'",
+                  "SSLMode": "prefer",
+                  "ConnectNow": true
+                },
+                "2": {
+                  "Name": "Provider",
+                  "Group": "Servers",
+                  "Host": "provider-edc-possible-x-edc-postgres.edc-dev",
+                  "Port": 5432,
+                  "MaintenanceDB": "edc",
+                  "Username": "admin",
+                  "Password": "'$POSTGRES_PASSWORD'",
+                  "SSLMode": "prefer",
+                  "ConnectNow": true
+                }
+              }
+            }' > /config/servers.json
+        env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-password
+              key: POSTGRES_PASSWORD
+        volumeMounts:
+        - name: config-volume
+          mountPath: /config
+      containers:
+      - name: pgadmin
+        image: dpage/pgadmin4:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION
+          value: "False"
+        - name: PGADMIN_DEFAULT_EMAIL
+          value: "admin@possible-x.de"  # Set your admin email
+        - name: PGADMIN_DEFAULT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: pgadmin-password
+              key: PGADMIN_DEFAULT_PASSWORD
+        volumeMounts:
+        - name: config-volume
+          mountPath: /pgadmin4/servers.json
+          subPath: servers.json
+      volumes:
+      - name: config-volume
+        emptyDir: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pgadmin-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: cluster-issuer-letsencrypt
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: pgadmin.dev.possible-x.de  # Change this to your desired domain or IP
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: pgadmin
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - pgadmin.dev.possible-x.de
+    secretName: pgadmin-tls
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pgadmin
+  labels:
+    app: pgadmin
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: http
+  selector:
+    app: pgadmin
+---

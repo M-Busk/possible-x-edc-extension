@@ -39,3 +39,4 @@ data:
     edc.iam.token.scope={{ .Values.edc.iam.token.scope }}
     edc.keystore={{ .Values.edc.keystore.path }}
     edc.keystore.password={{ .Values.edc.keystore.password }}
+    edc.vault={{ .Values.edc.vault.path }}
