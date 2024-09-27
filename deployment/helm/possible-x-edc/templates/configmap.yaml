@@ -29,4 +29,14 @@ data:
     edc.dsp.callback.address={{ .Values.edc.dsp.callback.address }}
     edc.receiver.http.endpoint={{ .Values.edc.receiver.http.endpoint }}/receiver/{{ .Values.edc.ids.id }}/callback
     edc.public.key.alias={{ .Values.edc.public.key.alias }}
-    edc.dataplane.token.validation.endpoint={{ .Values.edc.dataplane.token.validation.endpoint }}{{ .Values.web.http.control.path }}/token
+    edc.dataplane.token.validation.endpoint={{ .Values.edc.dataplane.token.validation.endpoint }}
+    edc.oauth.token.url={{ .Values.edc.oauth.token.url }}
+    edc.oauth.certificate.alias={{ .Values.edc.oauth.certificate.alias }}
+    edc.oauth.private.key.alias={{ .Values.edc.oauth.private.key.alias }}
+    edc.oauth.client.id={{ .Values.edc.oauth.client.id }}
+    edc.oauth.provider.jwks.url={{ .Values.edc.oauth.provider.jwks.url }}
+    edc.oauth.provider.audience={{ .Values.edc.oauth.provider.audience }}
+    edc.iam.token.scope={{ .Values.edc.iam.token.scope }}
+    edc.keystore={{ .Values.edc.keystore.path }}
+    edc.keystore.password={{ .Values.edc.keystore.password }}
+    edc.vault={{ .Values.edc.vault.path }}
