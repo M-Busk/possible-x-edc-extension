@@ -76,7 +76,16 @@ dependencies {
 	implementation ("com.ionoscloud.edc:provision-ionos-s3:v2.2.0")
 	implementation ("com.ionoscloud.edc:data-plane-ionos-s3:v2.2.0")
 
-	//implementation("de.fraunhofer.iais.eis.ids.infomodel:java:${fraunhoferVersion}")
+  implementation("${edcGroup}:asset-index-sql:${edcVersion}")
+  implementation("${edcGroup}:contract-definition-store-sql:${edcVersion}")
+  implementation("${edcGroup}:contract-negotiation-store-sql:${edcVersion}")
+  implementation("${edcGroup}:policy-definition-store-sql:${edcVersion}")
+  implementation("${edcGroup}:policy-monitor-store-sql:${edcVersion}")
+  implementation("${edcGroup}:sql-lease:${edcVersion}")
+  implementation("${edcGroup}:sql-pool-apache-commons:${edcVersion}")
+  implementation("${edcGroup}:transaction-local:$edcVersion")
+  implementation("${edcGroup}:transaction-datasource-spi:$edcVersion")
+  implementation ("org.postgresql:postgresql:42.7.2")
 }
 
 repositories {
