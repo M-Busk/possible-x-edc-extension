@@ -40,3 +40,7 @@ data:
     edc.keystore={{ .Values.edc.keystore.path }}
     edc.keystore.password={{ .Values.edc.keystore.password }}
     edc.vault={{ .Values.edc.vault.path }}
+    edc.datasource.default.url=jdbc:postgresql://{{ .Values.edc.datasource.url }}
+    edc.datasource.default.name={{ .Values.edc.datasource.name }}
+    edc.datasource.default.user={{ .Values.edc.datasource.name }}
+    edc.datasource.default.password={{ .Values.edc.datasource.password }}
