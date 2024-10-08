@@ -2,7 +2,7 @@
 FROM openjdk:17-slim-buster
 
 # by default curl is not available, so install it
-RUN apt update && apt install curl -y
+RUN apt update && apt install curl -y; apt-get install -y gettext-base
 
 WORKDIR /app
 
@@ -14,4 +14,4 @@ COPY ./build/libs/connector.jar /app
 
 ENV EDC_FS_CONFIG = $EDC_FS_CONFIG
 
-ENTRYPOINT java -jar connector.jar
+CMD java -jar connector.jar
