@@ -179,15 +179,3 @@ possible:
       token: notnull
   connector:
     edcVersion: 0.1.2
-
-persistence:
-  db:
-    enabled: false
-    image:
-      repository: postgres
-      pullPolicy: IfNotPresent
-      tag: latest
-    databaseUser: "admin"
-    databaseName: "edc"
-    databasePasswordSecretName: ""
-    storageSize: 1Gi

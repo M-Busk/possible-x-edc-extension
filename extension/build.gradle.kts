@@ -13,6 +13,11 @@ dependencies {
 	implementation("${edcGroup}:core-spi:${edcVersion}")
     implementation("${edcGroup}:http:${edcVersion}")
 	implementation("${edcGroup}:control-plane-core:${edcVersion}")
+    //implementation(libs.jakarta.rsApi)
+
+    // apache Jena
+    implementation("org.apache.jena:jena-core:4.8.0")
+    implementation("org.apache.jena:jena-arq:4.8.0")
 }
 
 application {
