@@ -40,6 +40,7 @@ repositories {
 val javaVersion: String by project
 val edcGroup: String by project
 val edcVersion: String by project
+val ionosExtensionVersion: String by project
 
 
 dependencies {
@@ -73,8 +74,8 @@ dependencies {
 	implementation(project(":policy-extension"))
 
 	//IONOS
-	implementation ("com.ionoscloud.edc:provision-ionos-s3:v2.2.0")
-	implementation ("com.ionoscloud.edc:data-plane-ionos-s3:v2.2.0")
+	implementation ("com.ionoscloud.edc:provision-ionos-s3:${ionosExtensionVersion}")
+	implementation ("com.ionoscloud.edc:data-plane-ionos-s3:${ionosExtensionVersion}")
 
   implementation("${edcGroup}:asset-index-sql:${edcVersion}")
   implementation("${edcGroup}:contract-definition-store-sql:${edcVersion}")
