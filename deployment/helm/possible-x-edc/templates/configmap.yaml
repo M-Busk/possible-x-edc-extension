@@ -18,7 +18,7 @@ data:
     edc.participant.id={{ .Values.edc.participant.id }}
     edc.ionos.access.key={{ .Values.edc.ionos.accessKey }}
     edc.ionos.secret.key={{ .Values.edc.ionos.secretKey }}
-    edc.ionos.endpoint={{ .Values.edc.ionos.endpoint }}
+    edc.ionos.endpoint.region={{ .Values.edc.ionos.region }}
     edc.ionos.token={{ .Values.edc.ionos.token }}
     possible.catalog.endpoint={{ .Values.possible.catalog.endpoint }}
     possible.catalog.jwt.token={{ .Values.possible.catalog.jwt.token }}
