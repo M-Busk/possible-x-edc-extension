@@ -4,6 +4,7 @@ import org.eclipse.edc.policy.engine.spi.AtomicConstraintFunction;
 import org.eclipse.edc.policy.engine.spi.PolicyContext;
 import org.eclipse.edc.policy.model.Operator;
 import org.eclipse.edc.policy.model.Permission;
+import org.eclipse.edc.policy.model.Rule;
 import org.eclipse.edc.spi.agent.ParticipantAgent;
 import org.eclipse.edc.spi.monitor.Monitor;
 
@@ -13,7 +14,7 @@ import java.util.Objects;
 
 import static java.lang.String.format;
 
-public class ConnectorIdConstraintFunction implements AtomicConstraintFunction<Permission> {
+public class ConnectorIdConstraintFunction<R extends Rule> implements AtomicConstraintFunction<R> {
 
     private final Monitor monitor;
 
@@ -22,7 +23,7 @@ public class ConnectorIdConstraintFunction implements AtomicConstraintFunction<P
     }
 
     @Override
-    public boolean evaluate(Operator operator, Object rightValue, Permission rule, PolicyContext context) {
+    public boolean evaluate(Operator operator, Object rightValue, R rule, PolicyContext context) {
         var contextData = context.getContextData(ParticipantAgent.class);
         if (contextData == null) {
             return false;
