@@ -18,6 +18,9 @@ spec:
         command: ["/bin/sh", "-c"]
         args: 
         - |
+          touch /config/pgpass
+          echo "possible-x-portal-postgres.edc-dev:*:*:admin:$PORTAL_POSTGRES_PASSWORD" >> /config/pgpass
+          echo "*:*:*:*:$POSTGRES_PASSWORD" >> /config/pgpass
           echo '{
               "Servers": {
                 "1": {
@@ -27,7 +30,7 @@ spec:
                   "Port": 5432,
                   "MaintenanceDB": "edc",
                   "Username": "admin",
-                  "Password": "'$POSTGRES_PASSWORD'",
+                  "PassFile": "/pgadmin4/pgpass",
                   "SSLMode": "prefer",
                   "ConnectNow": true
                 },
@@ -38,7 +41,7 @@ spec:
                   "Port": 5432,
                   "MaintenanceDB": "edc",
                   "Username": "admin",
-                  "Password": "'$POSTGRES_PASSWORD'",
+                  "PassFile": "/pgadmin4/pgpass",
                   "SSLMode": "prefer",
                   "ConnectNow": true
                 },
@@ -49,12 +52,16 @@ spec:
                   "Port": 5432,
                   "MaintenanceDB": "portal",
                   "Username": "admin",
-                  "Password": "'$PORTAL_POSTGRES_PASSWORD'",
+                  "PassFile": "/pgadmin4/pgpass",
                   "SSLMode": "prefer",
                   "ConnectNow": true
                 }
               }
             }' > /config/servers.json
+            chmod 600 /config/pgpass
+            chown 5050:0 /config/pgpass
+            chown 5050:0 /config/servers.json
+
         env:
         - name: POSTGRES_PASSWORD
           valueFrom:
@@ -72,6 +79,7 @@ spec:
       containers:
       - name: pgadmin
         image: dpage/pgadmin4:latest
+        resources: {}
         ports:
         - containerPort: 80
         env:
@@ -81,6 +89,8 @@ spec:
           value: "False"
         - name: PGADMIN_DEFAULT_EMAIL
           value: "admin@possible-x.de"  # Set your admin email
+        - name: PGPASSFILE
+          value: /pgadmin4/pgpass
         - name: PGADMIN_DEFAULT_PASSWORD
           valueFrom:
             secretKeyRef:
@@ -90,6 +100,9 @@ spec:
         - name: config-volume
           mountPath: /pgadmin4/servers.json
           subPath: servers.json
+        - name: config-volume
+          mountPath: /pgadmin4/pgpass
+          subPath: pgpass
       volumes:
       - name: config-volume
         emptyDir: {}
