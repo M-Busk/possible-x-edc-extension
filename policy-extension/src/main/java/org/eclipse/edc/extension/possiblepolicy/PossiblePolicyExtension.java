@@ -18,6 +18,7 @@ package org.eclipse.edc.extension.possiblepolicy;
 import org.eclipse.edc.policy.engine.spi.PolicyEngine;
 import org.eclipse.edc.policy.engine.spi.RuleBindingRegistry;
 import org.eclipse.edc.policy.model.Permission;
+import org.eclipse.edc.policy.model.Prohibition;
 import org.eclipse.edc.runtime.metamodel.annotation.Extension;
 import org.eclipse.edc.runtime.metamodel.annotation.Inject;
 import org.eclipse.edc.spi.system.ServiceExtension;
@@ -48,6 +49,7 @@ public class PossiblePolicyExtension implements ServiceExtension {
 
         ruleBindingRegistry.bind("use", ALL_SCOPES);
         ruleBindingRegistry.bind(CONNECTORID_CONSTRAINT_KEY, ALL_SCOPES);
-        policyEngine.registerFunction(ALL_SCOPES, Permission.class, CONNECTORID_CONSTRAINT_KEY, new ConnectorIdConstraintFunction(monitor));
+        policyEngine.registerFunction(ALL_SCOPES, Permission.class, CONNECTORID_CONSTRAINT_KEY, new ConnectorIdConstraintFunction<>(monitor));
+        policyEngine.registerFunction(ALL_SCOPES, Prohibition.class, CONNECTORID_CONSTRAINT_KEY, new ConnectorIdConstraintFunction<>(monitor));
     }
 }
