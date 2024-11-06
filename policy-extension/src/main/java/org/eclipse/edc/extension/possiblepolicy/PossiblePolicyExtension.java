@@ -24,14 +24,21 @@ import org.eclipse.edc.runtime.metamodel.annotation.Inject;
 import org.eclipse.edc.spi.system.ServiceExtension;
 import org.eclipse.edc.spi.system.ServiceExtensionContext;
 
+import java.util.Map;
+
 import static org.eclipse.edc.policy.engine.spi.PolicyEngine.ALL_SCOPES;
 
-@Extension(value = PossiblePolicyExtension.NAME)
+@Extension(value = PossiblePolicyExtension.EXTENSION_NAME)
 public class PossiblePolicyExtension implements ServiceExtension {
 
-    public static final String NAME = "POSSIBLE-POLICY-EXTENSION";
+    public static final String EXTENSION_NAME = "POSSIBLE-POLICY-EXTENSION";
 
-    private static final String CONNECTORID_CONSTRAINT_KEY = "connectorId";
+    private static final boolean VERBOSE = true;
+
+    private static final Map<String, String> CONSTRAINT_KEY_MAP = Map.of(
+        "connectorId", "client_id",
+        "did", "did"
+    );
 
     @Inject
     private RuleBindingRegistry ruleBindingRegistry;
@@ -40,7 +47,7 @@ public class PossiblePolicyExtension implements ServiceExtension {
 
     @Override
     public String name() {
-        return "Sample policy functions";
+        return EXTENSION_NAME;
     }
 
     @Override
@@ -48,8 +55,13 @@ public class PossiblePolicyExtension implements ServiceExtension {
         var monitor = context.getMonitor();
 
         ruleBindingRegistry.bind("use", ALL_SCOPES);
-        ruleBindingRegistry.bind(CONNECTORID_CONSTRAINT_KEY, ALL_SCOPES);
-        policyEngine.registerFunction(ALL_SCOPES, Permission.class, CONNECTORID_CONSTRAINT_KEY, new ConnectorIdConstraintFunction<>(monitor));
-        policyEngine.registerFunction(ALL_SCOPES, Prohibition.class, CONNECTORID_CONSTRAINT_KEY, new ConnectorIdConstraintFunction<>(monitor));
+
+        for (Map.Entry<String, String> entry : CONSTRAINT_KEY_MAP.entrySet()) {
+            ruleBindingRegistry.bind(entry.getKey(), ALL_SCOPES);
+            policyEngine.registerFunction(ALL_SCOPES, Permission.class, entry.getKey(),
+                new ClientClaimConstraintFunction<>(monitor, entry.getValue(), VERBOSE));
+            policyEngine.registerFunction(ALL_SCOPES, Prohibition.class, entry.getKey(),
+                new ClientClaimConstraintFunction<>(monitor, entry.getValue(), VERBOSE));
+        }
     }
 }
