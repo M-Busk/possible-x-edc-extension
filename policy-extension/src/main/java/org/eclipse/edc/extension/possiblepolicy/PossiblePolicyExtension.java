@@ -26,6 +26,7 @@ import org.eclipse.edc.spi.system.ServiceExtensionContext;
 
 import java.util.Map;
 
+import static org.eclipse.edc.connector.contract.spi.validation.ContractValidationService.NEGOTIATION_SCOPE;
 import static org.eclipse.edc.policy.engine.spi.PolicyEngine.ALL_SCOPES;
 
 @Extension(value = PossiblePolicyExtension.EXTENSION_NAME)
@@ -54,13 +55,13 @@ public class PossiblePolicyExtension implements ServiceExtension {
     public void initialize(ServiceExtensionContext context) {
         var monitor = context.getMonitor();
 
-        ruleBindingRegistry.bind("use", ALL_SCOPES);
+        ruleBindingRegistry.bind("use", NEGOTIATION_SCOPE);
 
         for (Map.Entry<String, String> entry : CONSTRAINT_KEY_MAP.entrySet()) {
-            ruleBindingRegistry.bind(entry.getKey(), ALL_SCOPES);
-            policyEngine.registerFunction(ALL_SCOPES, Permission.class, entry.getKey(),
+            ruleBindingRegistry.bind(entry.getKey(), NEGOTIATION_SCOPE);
+            policyEngine.registerFunction(NEGOTIATION_SCOPE, Permission.class, entry.getKey(),
                 new ClientClaimConstraintFunction<>(monitor, entry.getValue(), VERBOSE));
-            policyEngine.registerFunction(ALL_SCOPES, Prohibition.class, entry.getKey(),
+            policyEngine.registerFunction(NEGOTIATION_SCOPE, Prohibition.class, entry.getKey(),
                 new ClientClaimConstraintFunction<>(monitor, entry.getValue(), VERBOSE));
         }
     }
