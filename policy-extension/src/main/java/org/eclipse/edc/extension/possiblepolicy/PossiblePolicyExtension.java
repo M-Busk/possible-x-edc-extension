@@ -23,11 +23,11 @@ import org.eclipse.edc.runtime.metamodel.annotation.Extension;
 import org.eclipse.edc.runtime.metamodel.annotation.Inject;
 import org.eclipse.edc.spi.system.ServiceExtension;
 import org.eclipse.edc.spi.system.ServiceExtensionContext;
+import static org.eclipse.edc.policy.model.OdrlNamespace.ODRL_SCHEMA;
 
 import java.util.Map;
 
 import static org.eclipse.edc.connector.contract.spi.validation.ContractValidationService.NEGOTIATION_SCOPE;
-import static org.eclipse.edc.policy.engine.spi.PolicyEngine.ALL_SCOPES;
 
 @Extension(value = PossiblePolicyExtension.EXTENSION_NAME)
 public class PossiblePolicyExtension implements ServiceExtension {
@@ -56,6 +56,8 @@ public class PossiblePolicyExtension implements ServiceExtension {
         var monitor = context.getMonitor();
 
         ruleBindingRegistry.bind("use", NEGOTIATION_SCOPE);
+        ruleBindingRegistry.bind("USE", NEGOTIATION_SCOPE);
+        ruleBindingRegistry.bind(ODRL_SCHEMA + "use", NEGOTIATION_SCOPE);
 
         for (Map.Entry<String, String> entry : CONSTRAINT_KEY_MAP.entrySet()) {
             ruleBindingRegistry.bind(entry.getKey(), NEGOTIATION_SCOPE);

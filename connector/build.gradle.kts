@@ -80,6 +80,7 @@ dependencies {
   implementation("${edcGroup}:asset-index-sql:${edcVersion}")
   implementation("${edcGroup}:contract-definition-store-sql:${edcVersion}")
   implementation("${edcGroup}:contract-negotiation-store-sql:${edcVersion}")
+  implementation("${edcGroup}:contract-core:${edcVersion}")
   implementation("${edcGroup}:policy-definition-store-sql:${edcVersion}")
   implementation("${edcGroup}:policy-monitor-store-sql:${edcVersion}")
   implementation("${edcGroup}:sql-lease:${edcVersion}")
