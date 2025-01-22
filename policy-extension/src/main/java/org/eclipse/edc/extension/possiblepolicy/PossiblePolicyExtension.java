@@ -25,7 +25,6 @@ import org.eclipse.edc.runtime.metamodel.annotation.Inject;
 import org.eclipse.edc.spi.system.ServiceExtension;
 import org.eclipse.edc.spi.system.ServiceExtensionContext;
 
-import static org.eclipse.edc.connector.contract.spi.validation.ContractValidationService.TRANSFER_SCOPE;
 import static org.eclipse.edc.policy.model.OdrlNamespace.ODRL_SCHEMA;
 
 import java.util.Map;
@@ -62,9 +61,6 @@ public class PossiblePolicyExtension implements ServiceExtension {
         ruleBindingRegistry.bind("use", NEGOTIATION_SCOPE);
         ruleBindingRegistry.bind("USE", NEGOTIATION_SCOPE);
         ruleBindingRegistry.bind(ODRL_SCHEMA + "use", NEGOTIATION_SCOPE);
-        ruleBindingRegistry.bind("use", TRANSFER_SCOPE);
-        ruleBindingRegistry.bind("USE", TRANSFER_SCOPE);
-        ruleBindingRegistry.bind(ODRL_SCHEMA + "use", TRANSFER_SCOPE);
 
         // iterate over claim constraint key map and register functions for negotiation and transfer scope
         for (Map.Entry<String, String> entry : CONSTRAINT_KEY_MAP.entrySet()) {
@@ -72,12 +68,6 @@ public class PossiblePolicyExtension implements ServiceExtension {
             policyEngine.registerFunction(NEGOTIATION_SCOPE, Permission.class, entry.getKey(),
                 new ClientClaimConstraintFunction<>(monitor, entry.getValue(), VERBOSE));
             policyEngine.registerFunction(NEGOTIATION_SCOPE, Prohibition.class, entry.getKey(),
-                new ClientClaimConstraintFunction<>(monitor, entry.getValue(), VERBOSE));
-
-            ruleBindingRegistry.bind(entry.getKey(), TRANSFER_SCOPE);
-            policyEngine.registerFunction(TRANSFER_SCOPE, Permission.class, entry.getKey(),
-                new ClientClaimConstraintFunction<>(monitor, entry.getValue(), VERBOSE));
-            policyEngine.registerFunction(TRANSFER_SCOPE, Prohibition.class, entry.getKey(),
                 new ClientClaimConstraintFunction<>(monitor, entry.getValue(), VERBOSE));
         }
 
