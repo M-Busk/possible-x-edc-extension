@@ -15,6 +15,7 @@
 
 package org.eclipse.edc.extension.possiblepolicy;
 
+import org.eclipse.edc.connector.core.policy.ContractExpiryCheckFunction;
 import org.eclipse.edc.policy.engine.spi.PolicyEngine;
 import org.eclipse.edc.policy.engine.spi.RuleBindingRegistry;
 import org.eclipse.edc.policy.model.Permission;
@@ -23,6 +24,8 @@ import org.eclipse.edc.runtime.metamodel.annotation.Extension;
 import org.eclipse.edc.runtime.metamodel.annotation.Inject;
 import org.eclipse.edc.spi.system.ServiceExtension;
 import org.eclipse.edc.spi.system.ServiceExtensionContext;
+
+import static org.eclipse.edc.connector.contract.spi.validation.ContractValidationService.TRANSFER_SCOPE;
 import static org.eclipse.edc.policy.model.OdrlNamespace.ODRL_SCHEMA;
 
 import java.util.Map;
@@ -55,16 +58,35 @@ public class PossiblePolicyExtension implements ServiceExtension {
     public void initialize(ServiceExtensionContext context) {
         var monitor = context.getMonitor();
 
+        // register use action for both negotiation and transfer scope
         ruleBindingRegistry.bind("use", NEGOTIATION_SCOPE);
         ruleBindingRegistry.bind("USE", NEGOTIATION_SCOPE);
         ruleBindingRegistry.bind(ODRL_SCHEMA + "use", NEGOTIATION_SCOPE);
+        ruleBindingRegistry.bind("use", TRANSFER_SCOPE);
+        ruleBindingRegistry.bind("USE", TRANSFER_SCOPE);
+        ruleBindingRegistry.bind(ODRL_SCHEMA + "use", TRANSFER_SCOPE);
 
+        // iterate over claim constraint key map and register functions for negotiation and transfer scope
         for (Map.Entry<String, String> entry : CONSTRAINT_KEY_MAP.entrySet()) {
             ruleBindingRegistry.bind(entry.getKey(), NEGOTIATION_SCOPE);
             policyEngine.registerFunction(NEGOTIATION_SCOPE, Permission.class, entry.getKey(),
                 new ClientClaimConstraintFunction<>(monitor, entry.getValue(), VERBOSE));
             policyEngine.registerFunction(NEGOTIATION_SCOPE, Prohibition.class, entry.getKey(),
                 new ClientClaimConstraintFunction<>(monitor, entry.getValue(), VERBOSE));
+
+            ruleBindingRegistry.bind(entry.getKey(), TRANSFER_SCOPE);
+            policyEngine.registerFunction(TRANSFER_SCOPE, Permission.class, entry.getKey(),
+                new ClientClaimConstraintFunction<>(monitor, entry.getValue(), VERBOSE));
+            policyEngine.registerFunction(TRANSFER_SCOPE, Prohibition.class, entry.getKey(),
+                new ClientClaimConstraintFunction<>(monitor, entry.getValue(), VERBOSE));
         }
+
+        // also register reimplementation of standard edc contract expiry check function for negotiation scope
+        ruleBindingRegistry.bind(ContractExpiryCheckFunction.CONTRACT_EXPIRY_EVALUATION_KEY, NEGOTIATION_SCOPE);
+        policyEngine.registerFunction(NEGOTIATION_SCOPE, Permission.class, ContractExpiryCheckFunction.CONTRACT_EXPIRY_EVALUATION_KEY,
+            new NegotiationContractExpiryCheckFunction<>(monitor));
+        policyEngine.registerFunction(NEGOTIATION_SCOPE, Prohibition.class, ContractExpiryCheckFunction.CONTRACT_EXPIRY_EVALUATION_KEY,
+            new NegotiationContractExpiryCheckFunction<>(monitor));
+        // standard edc contract expiry check is already registered for transfer scope in contract-core extension
     }
 }
