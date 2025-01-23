@@ -93,7 +93,7 @@ public class NegotiationContractExpiryCheckFunction<R extends Rule> implements A
             }
 
             context.reportProblem(format("Unsupported right-value, expected either an ISO-8061 String or a expression matching '%s', but got '%s'",
-                ContractExpiryCheckFunction.CONTRACT_EXPIRY_EVALUATION_KEY, rightValueStr));
+                EXPRESSION_REGEX, rightValueStr));
         } catch (NullPointerException | DateTimeParseException ex) {
             monitor.warning(format("Exception during time policy evaluation: %s %s", ex.getClass().getCanonicalName(), ex.getMessage()));
             context.reportProblem(ex.getMessage());
