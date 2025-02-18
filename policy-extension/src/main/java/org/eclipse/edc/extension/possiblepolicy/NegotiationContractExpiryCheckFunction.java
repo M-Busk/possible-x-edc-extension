@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2023 Bayerische Motoren Werke Aktiengesellschaft (BMW AG)
+ *  Copyright 2024-2025 Dataport. All rights reserved. Extended as part of the POSSIBLE project.
  *
  *  This program and the accompanying materials are made available under the
  *  terms of the Apache License, Version 2.0 which is available at
