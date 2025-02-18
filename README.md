@@ -12,12 +12,18 @@ attempts:
 - The consumer of an offering must be on the list of allowed consumer participants. Only then is it possible to
   negotiate a contract and trigger a data transfer in the case of Data Service Offerings. The provider participant
   defines the participant list.
-- The consumer of an offering can only negotiate a contract after a certain start date. This date is defined by the provider
-  participant.
-- The consumer of an offering can only negotiate a contract before a certain end date. This date is defined by the provider
-  participant.
+- The consumer of an offering can only negotiate a contract after a certain start date. Data transfers are also only 
+  possible after the specified start date. This date is defined by the provider participant.
+- The consumer of an offering can only negotiate a contract before a certain end date. Data transfers are also only 
+  possible before the specified end date. This date is defined by the provider participant.
 
-The implementation can be found in the `policy-extension` folder.
+The POSSIBLE-X Extension implementation can be found in the `policy-extension` folder.
+
+Through activation of the EDC connector's `contract-core` extension as seen [here](https://github.com/POSSIBLE-X/possible-x-edc-extension/blob/main/connector/build.gradle.kts#L83),
+it is possible to enforce another constraint during data transfer attempts:
+
+- The consumer of an offering can only transfer data within a certain time frame which starts after the contract agreement 
+  is formed. This time frame is defined by the provider participant.
 
 ## How to run an EDC connector with the POSSIBLE-X and the IONOS S3 extensions
 
@@ -119,7 +125,7 @@ A GitHub Action Pipeline (Build and Deploy EDC) was implemented to build and dep
 
 The Pipeline Builds a docker container and deploys it to the IONOS Cloud Possible-X Kubernetes Cluster:
 
-| Component | Namespace           | URL                                    |
-|-----------|---------------------|----------------------------------------|
-| Consumer  | dev-github-consumer | https://consumer.edc.dev.possible-x.de |
-| Provider  | dev-github-provider | https://provider.edc.dev.possible-x.de |
+| Component | Namespace | URL                                    |
+|-----------|-----------|----------------------------------------|
+| Consumer  | edc-dev   | https://consumer.edc.dev.possible-x.de |
+| Provider  | edc-dev   | https://provider.edc.dev.possible-x.de |
