@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
 env:
   REGISTRY: ghcr.io
-  REGISTRY_NAMESPACE: possible-x
+  REGISTRY_NAMESPACE: dataport
   K8S_NAMESPACE: ${{ github.ref == 'refs/heads/main' && 'mvd-001-demo' || 'edc-dev' }}
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
