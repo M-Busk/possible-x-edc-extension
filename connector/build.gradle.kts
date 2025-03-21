@@ -74,8 +74,11 @@ dependencies {
 	implementation(project(":policy-extension"))
 
 	//IONOS
-	implementation ("com.ionoscloud.edc:provision-ionos-s3:${ionosExtensionVersion}")
-	implementation ("com.ionoscloud.edc:data-plane-ionos-s3:${ionosExtensionVersion}")
+	//implementation ("com.ionoscloud.edc:provision-ionos-s3:${ionosExtensionVersion}")
+	//implementation ("com.ionoscloud.edc:data-plane-ionos-s3:${ionosExtensionVersion}")
+	implementation("org.eclipse.edc:aws-s3-core:0.4.1")
+	implementation("org.eclipse.edc:data-plane-aws-s3:0.4.1")
+	implementation("org.eclipse.edc:provision-aws-s3:0.4.1")
 
   implementation("${edcGroup}:asset-index-sql:${edcVersion}")
   implementation("${edcGroup}:contract-definition-store-sql:${edcVersion}")
