@@ -21,6 +21,8 @@ edc-bom-dataplane-base = { module = "org.eclipse.edc:dataplane-base-bom", versio
 edc-build-plugin = { module = "org.eclipse.edc.edc-build:org.eclipse.edc.edc-build.gradle.plugin", version.ref = "edc" }
 edc-configuration-filesystem = { module = "org.eclipse.edc:configuration-filesystem", version.ref = "edc" }
 edc-connector-core = { module = "org.eclipse.edc:connector-core", version.ref = "edc" }
+edc-control-plane-contract = { module = "org.eclipse.edc:control-plane-contract", version.ref = "edc" }
+edc-control-plane-policies-lib = { module = "org.eclipse.edc:control-plane-policies-lib", version.ref = "edc" }
 edc-control-api-configuration = { module = "org.eclipse.edc:control-api-configuration", version.ref = "edc" }
 edc-control-plane-api-client = { module = "org.eclipse.edc:control-plane-api-client", version.ref = "edc" }
 edc-control-plane-api = { module = "org.eclipse.edc:control-plane-api", version.ref = "edc" }

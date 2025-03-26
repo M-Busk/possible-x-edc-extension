@@ -16,7 +16,7 @@
 
 package org.eclipse.edc.extension.possiblepolicy;
 
-import org.eclipse.edc.connector.core.policy.ContractExpiryCheckFunction;
+import org.eclipse.edc.connector.controlplane.policy.contract.ContractExpiryCheckFunction;
 import org.eclipse.edc.policy.engine.spi.AtomicConstraintFunction;
 import org.eclipse.edc.policy.engine.spi.PolicyContext;
 import org.eclipse.edc.policy.model.Operator;

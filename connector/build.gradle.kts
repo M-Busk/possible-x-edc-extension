@@ -65,9 +65,6 @@ dependencies {
 repositories {
 	mavenLocal()
 	mavenCentral()
-    maven {// while runtime-metamodel dependency is still a snapshot
-		url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
-    }
 }
 
 application {

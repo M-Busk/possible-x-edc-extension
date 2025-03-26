@@ -38,4 +38,4 @@ dependencyResolutionManagement {
 
 include(":connector")
 
-//include(":policy-extension")
+include(":policy-extension")
