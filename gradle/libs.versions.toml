@@ -3,7 +3,7 @@ format.version = "1.1"
 
 [versions]
 awaitility = "4.2.2"
-edc = "0.11.1"
+edc = "0.9.1"
 jupiter = "5.12.0"
 okhttp-mockwebserver = "5.0.0-alpha.14"
 restAssured = "5.5.1"
@@ -59,6 +59,8 @@ edc-vault-hashicorp = { module = "org.eclipse.edc:vault-hashicorp", version.ref 
 edc-validator-data-address-http-data = { module = "org.eclipse.edc:validator-data-address-http-data", version.ref = "edc" }
 edc-validator-data-address-aws-s3 = { module = "org.eclipse.edc.aws:validator-data-address-s3", version.ref = "edc" }
 edc-web-spi = { module = "org.eclipse.edc:web-spi", version.ref = "edc" }
+edc-oauth2-service = { module = "org.eclipse.edc:oauth2-service", version.ref = "edc" }
+edc-oauth2-daps = { module = "org.eclipse.edc:oauth2-daps", version.ref = "edc" }
 jakarta-rsApi = { module = "jakarta.ws.rs:jakarta.ws.rs-api", version.ref = "rsApi" }
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "jupiter" }
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "jupiter" }

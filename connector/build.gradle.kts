@@ -55,8 +55,11 @@ dependencies {
 
 
 	implementation(libs.edc.validator.data.address.aws.s3)
-	implementation(libs.edc.monitor.jdk.logger)
+	//implementation(libs.edc.monitor.jdk.logger)
 	implementation(libs.edc.vault.hashicorp)
+	implementation(libs.edc.oauth2.service)
+	implementation(libs.edc.oauth2.daps)
+	implementation(libs.edc.auth.tokenbased)
 }
 
 repositories {
