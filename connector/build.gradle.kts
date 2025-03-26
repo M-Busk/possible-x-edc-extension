@@ -18,21 +18,6 @@ plugins {
     id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 repositories {
-	
-    maven {// while runtime-metamodel dependency is still a snapshot
-		url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
-    }
-	  maven {
-        url = uri("https://maven.iais.fraunhofer.de/artifactory/eis-ids-public/")
-    }
-	maven {
-		url = uri("https://maven.pkg.github.com/Digital-Ecosystems/edc-ionos-s3/")
-		credentials {
-			username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME_GITHUB")
-			password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN_GITHUB")
-		}
-	}
-	
 	mavenLocal()
 	mavenCentral()
 }
@@ -44,61 +29,44 @@ val ionosExtensionVersion: String by project
 
 
 dependencies {
+	implementation(libs.edc.control.api.configuration)
+    implementation(libs.edc.control.plane.api.client)
+    implementation(libs.edc.control.plane.api)
+    implementation(libs.edc.control.plane.core)
+    implementation(libs.edc.dsp)
+    implementation(libs.edc.http)
+    implementation(libs.edc.configuration.filesystem)
+    implementation(libs.edc.iam.mock)
+    implementation(libs.edc.management.api)
+    implementation(libs.edc.edr.store.core)
+    implementation(libs.edc.transfer.data.plane.signaling)
+    implementation(libs.edc.transfer.pull.http.receiver)
+    implementation(libs.edc.validator.data.address.http.data)
+    implementation(libs.edc.data.plane.selector.api)
+    implementation(libs.edc.data.plane.selector.core)
+    implementation(libs.edc.data.plane.self.registration)
+    implementation(libs.edc.data.plane.signaling.api)
+    implementation(libs.edc.data.plane.public.api)
+    implementation(libs.edc.data.plane.core)
+    implementation(libs.edc.data.plane.http)
+    implementation(libs.edc.data.plane.aws.s3)
+    implementation(libs.edc.data.plane.signaling.client)
 
-	implementation("${edcGroup}:boot:${edcVersion}")
-	implementation("${edcGroup}:control-plane-core:${edcVersion}")
-	implementation("${edcGroup}:control-plane-api:${edcVersion}")
-	implementation("${edcGroup}:control-plane-api-client:${edcVersion}")
-	implementation("${edcGroup}:api-observability:${edcVersion}")
-	implementation("${edcGroup}:configuration-filesystem:${edcVersion}")
 
-	implementation("${edcGroup}:auth-tokenbased:${edcVersion}")
-	implementation("${edcGroup}:management-api:${edcVersion}")
 
-	//implementation("${edcGroup}:iam-mock:${edcVersion}")
+	implementation(libs.edc.validator.data.address.aws.s3)
+	//implementation(libs.edc.monitor.jdk.logger)
+	implementation(libs.edc.vault.hashicorp)
+	implementation(libs.edc.oauth2.service)
+	implementation(libs.edc.oauth2.daps)
+	implementation(libs.edc.auth.tokenbased)
 
-	implementation("${edcGroup}:oauth2-service:${edcVersion}")
-	implementation("${edcGroup}:oauth2-daps:${edcVersion}")
-	implementation("${edcGroup}:vault-filesystem:${edcVersion}")
-
-	implementation("${edcGroup}:dsp:${edcVersion}")
-	//file-transfer
-	implementation("${edcGroup}:data-plane-core:${edcVersion}")
-	implementation("${edcGroup}:data-plane-client:${edcVersion}")
-	implementation("${edcGroup}:data-plane-selector-client:${edcVersion}")
-	implementation("${edcGroup}:data-plane-selector-core:${edcVersion}")
-	implementation("${edcGroup}:transfer-data-plane:${edcVersion}")
-	implementation("${edcGroup}:data-plane-http:${edcVersion}")
-	implementation("${edcGroup}:http:${edcVersion}")
-
-	implementation(project(":policy-extension"))
-
-	//IONOS
-	//implementation ("com.ionoscloud.edc:provision-ionos-s3:${ionosExtensionVersion}")
-	//implementation ("com.ionoscloud.edc:data-plane-ionos-s3:${ionosExtensionVersion}")
-	implementation("org.eclipse.edc:aws-s3-core:0.4.1")
-	implementation("org.eclipse.edc:data-plane-aws-s3:0.4.1")
-	implementation("org.eclipse.edc:provision-aws-s3:0.4.1")
-
-  implementation("${edcGroup}:asset-index-sql:${edcVersion}")
-  implementation("${edcGroup}:contract-definition-store-sql:${edcVersion}")
-  implementation("${edcGroup}:contract-negotiation-store-sql:${edcVersion}")
-  implementation("${edcGroup}:contract-core:${edcVersion}")
-  implementation("${edcGroup}:policy-definition-store-sql:${edcVersion}")
-  implementation("${edcGroup}:policy-monitor-store-sql:${edcVersion}")
-  implementation("${edcGroup}:sql-lease:${edcVersion}")
-  implementation("${edcGroup}:sql-pool-apache-commons:${edcVersion}")
-  implementation("${edcGroup}:transaction-local:$edcVersion")
-  implementation("${edcGroup}:transaction-datasource-spi:$edcVersion")
-  implementation ("org.postgresql:postgresql:42.7.2")
+    implementation(project(":policy-extension"))
 }
 
 repositories {
 	mavenLocal()
 	mavenCentral()
-    maven {// while runtime-metamodel dependency is still a snapshot
-		url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
-    }
 }
 
 application {

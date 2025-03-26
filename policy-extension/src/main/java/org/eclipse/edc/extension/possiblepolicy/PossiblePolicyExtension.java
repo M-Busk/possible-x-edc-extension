@@ -16,27 +16,23 @@
 
 package org.eclipse.edc.extension.possiblepolicy;
 
-import org.eclipse.edc.connector.core.policy.ContractExpiryCheckFunction;
+import org.eclipse.edc.connector.controlplane.policy.contract.ContractExpiryCheckFunction;
 import org.eclipse.edc.policy.engine.spi.PolicyEngine;
 import org.eclipse.edc.policy.engine.spi.RuleBindingRegistry;
 import org.eclipse.edc.policy.model.Permission;
 import org.eclipse.edc.policy.model.Prohibition;
-import org.eclipse.edc.runtime.metamodel.annotation.Extension;
 import org.eclipse.edc.runtime.metamodel.annotation.Inject;
 import org.eclipse.edc.spi.system.ServiceExtension;
 import org.eclipse.edc.spi.system.ServiceExtensionContext;
 
-import static org.eclipse.edc.connector.contract.spi.validation.ContractValidationService.TRANSFER_SCOPE;
-import static org.eclipse.edc.policy.model.OdrlNamespace.ODRL_SCHEMA;
+import static org.eclipse.edc.connector.controlplane.contract.spi.validation.ContractValidationService.TRANSFER_SCOPE;
+import static org.eclipse.edc.jsonld.spi.PropertyAndTypeNames.ODRL_USE_ACTION_ATTRIBUTE;
 
 import java.util.Map;
 
-import static org.eclipse.edc.connector.contract.spi.validation.ContractValidationService.NEGOTIATION_SCOPE;
+import static org.eclipse.edc.connector.controlplane.contract.spi.validation.ContractValidationService.NEGOTIATION_SCOPE;
 
-@Extension(value = PossiblePolicyExtension.EXTENSION_NAME)
 public class PossiblePolicyExtension implements ServiceExtension {
-
-    public static final String EXTENSION_NAME = "POSSIBLE-POLICY-EXTENSION";
 
     private static final boolean VERBOSE = true;
 
@@ -52,21 +48,20 @@ public class PossiblePolicyExtension implements ServiceExtension {
 
     @Override
     public String name() {
-        return EXTENSION_NAME;
+        return "POSSIBLE-POLICY-EXTENSION";
     }
 
     @Override
     public void initialize(ServiceExtensionContext context) {
         var monitor = context.getMonitor();
-
         // register use action for both negotiation scope
         ruleBindingRegistry.bind("use", NEGOTIATION_SCOPE);
         ruleBindingRegistry.bind("USE", NEGOTIATION_SCOPE);
-        ruleBindingRegistry.bind(ODRL_SCHEMA + "use", NEGOTIATION_SCOPE);
+        ruleBindingRegistry.bind(ODRL_USE_ACTION_ATTRIBUTE, NEGOTIATION_SCOPE);
 
         ruleBindingRegistry.bind("use", TRANSFER_SCOPE);
         ruleBindingRegistry.bind("USE", TRANSFER_SCOPE);
-        ruleBindingRegistry.bind(ODRL_SCHEMA + "use", TRANSFER_SCOPE);
+        ruleBindingRegistry.bind(ODRL_USE_ACTION_ATTRIBUTE, TRANSFER_SCOPE);
 
         // iterate over claim constraint key map and register functions for negotiation scope
         for (Map.Entry<String, String> entry : CONSTRAINT_KEY_MAP.entrySet()) {

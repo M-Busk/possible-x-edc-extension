@@ -24,11 +24,11 @@ val edcGroup: String by project
 val edcVersion: String by project
 
 dependencies {
-    implementation("${edcGroup}:boot:${edcVersion}")
-    implementation("${edcGroup}:connector-core:${edcVersion}")
-	implementation("${edcGroup}:core-spi:${edcVersion}")
-    implementation("${edcGroup}:http:${edcVersion}")
-	implementation("${edcGroup}:control-plane-core:${edcVersion}")
+    api(libs.edc.data.plane.spi)
+    api(libs.edc.json.ld.spi)
+    implementation(libs.edc.control.plane.core)
+    implementation(libs.edc.control.plane.contract)
+    implementation(libs.edc.control.plane.policies.lib)
 }
 
 application {
