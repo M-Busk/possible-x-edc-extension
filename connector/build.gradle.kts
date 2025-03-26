@@ -60,6 +60,8 @@ dependencies {
 	implementation(libs.edc.oauth2.service)
 	implementation(libs.edc.oauth2.daps)
 	implementation(libs.edc.auth.tokenbased)
+
+    implementation(project(":policy-extension"))
 }
 
 repositories {
