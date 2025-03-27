@@ -61,7 +61,14 @@ dependencies {
 	implementation(libs.edc.oauth2.daps)
 	implementation(libs.edc.auth.tokenbased)
 
+    // SQL
+    runtimeOnly(libs.bundles.edc.sqlstores)
+    runtimeOnly(libs.edc.transaction.local)
+    runtimeOnly(libs.edc.sql.pool)
+    runtimeOnly(libs.postgres)
+
     implementation(project(":policy-extension"))
+
 }
 
 repositories {
