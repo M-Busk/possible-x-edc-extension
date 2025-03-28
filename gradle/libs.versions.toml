@@ -14,10 +14,7 @@ edc-dataplane-feature-sql-bom = { module = "org.eclipse.edc:dataplane-feature-sq
 
 # policy extension
 edc-control-plane-contract = { module = "org.eclipse.edc:control-plane-contract", version.ref = "edc" }
-edc-control-plane-core = { module = "org.eclipse.edc:control-plane-core", version.ref = "edc" }
 edc-control-plane-policies-lib = { module = "org.eclipse.edc:control-plane-policies-lib", version.ref = "edc" }
-edc-data-plane-spi = { module = "org.eclipse.edc:data-plane-spi", version.ref = "edc" }
-edc-json-ld-spi = { module = "org.eclipse.edc:json-ld-spi", version.ref = "edc" }
 
 # possible required extensions
 edc-data-plane-aws-s3 = { module = "org.eclipse.edc.aws:data-plane-aws-s3", version.ref = "edc" }
