@@ -24,10 +24,6 @@ val edcGroup: String by project
 val edcVersion: String by project
 
 dependencies {
-    api(libs.edc.data.plane.spi)
-    api(libs.edc.json.ld.spi)
-    implementation(libs.edc.controlplane.base.bom)
-    implementation(libs.edc.control.plane.core)
     implementation(libs.edc.control.plane.contract)
     implementation(libs.edc.control.plane.policies.lib)
 }

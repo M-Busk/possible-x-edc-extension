@@ -24,7 +24,6 @@ edc-data-plane-aws-s3 = { module = "org.eclipse.edc.aws:data-plane-aws-s3", vers
 edc-validator-data-address-aws-s3 = { module = "org.eclipse.edc.aws:validator-data-address-s3", version.ref = "edc" }
 edc-vault-hashicorp = { module = "org.eclipse.edc:vault-hashicorp", version.ref = "edc" }
 edc-oauth2-daps = { module = "org.eclipse.edc:oauth2-daps", version.ref = "edc" }
-edc-monitor-jdk-logger = { module = "org.eclipse.edc:monitor-jdk-logger", version.ref = "edc" }
 
 [plugins]
 shadow = { id = "com.gradleup.shadow", version = "8.3.6" }
