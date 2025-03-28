@@ -25,12 +25,12 @@ import org.eclipse.edc.runtime.metamodel.annotation.Inject;
 import org.eclipse.edc.spi.system.ServiceExtension;
 import org.eclipse.edc.spi.system.ServiceExtensionContext;
 
-import static org.eclipse.edc.connector.controlplane.contract.spi.validation.ContractValidationService.TRANSFER_SCOPE;
+import static org.eclipse.edc.connector.controlplane.contract.spi.policy.TransferProcessPolicyContext.TRANSFER_SCOPE;
 import static org.eclipse.edc.jsonld.spi.PropertyAndTypeNames.ODRL_USE_ACTION_ATTRIBUTE;
 
 import java.util.Map;
 
-import static org.eclipse.edc.connector.controlplane.contract.spi.validation.ContractValidationService.NEGOTIATION_SCOPE;
+import static org.eclipse.edc.connector.controlplane.contract.spi.policy.ContractNegotiationPolicyContext.NEGOTIATION_SCOPE;
 
 public class PossiblePolicyExtension implements ServiceExtension {
 

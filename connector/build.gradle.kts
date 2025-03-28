@@ -29,46 +29,22 @@ val ionosExtensionVersion: String by project
 
 
 dependencies {
-	implementation(libs.edc.control.api.configuration)
-    implementation(libs.edc.control.plane.api.client)
-    implementation(libs.edc.control.plane.api)
-    implementation(libs.edc.control.plane.core)
-    implementation(libs.edc.dsp)
-    implementation(libs.edc.http)
-    implementation(libs.edc.configuration.filesystem)
-    implementation(libs.edc.iam.mock)
-    implementation(libs.edc.management.api)
-    implementation(libs.edc.edr.store.core)
-    implementation(libs.edc.transfer.data.plane.signaling)
-    implementation(libs.edc.transfer.pull.http.receiver)
-    implementation(libs.edc.validator.data.address.http.data)
-    implementation(libs.edc.data.plane.selector.api)
-    implementation(libs.edc.data.plane.selector.core)
-    implementation(libs.edc.data.plane.self.registration)
-    implementation(libs.edc.data.plane.signaling.api)
-    implementation(libs.edc.data.plane.public.api)
-    implementation(libs.edc.data.plane.core)
-    implementation(libs.edc.data.plane.http)
+    implementation(libs.edc.controlplane.base.bom)
+    implementation(libs.edc.controlplane.feature.sql.bom)
+    implementation(libs.edc.controlplane.oauth2.bom)
+    implementation(libs.edc.dataplane.base.bom) {
+        exclude(module = "data-plane-selector-client")
+        exclude(module = "data-plane-iam")  // to support PULL flow this would need to be added back
+    }
+    implementation(libs.edc.dataplane.feature.sql.bom)
+
     implementation(libs.edc.data.plane.aws.s3)
-    implementation(libs.edc.data.plane.signaling.client)
-
-
-
 	implementation(libs.edc.validator.data.address.aws.s3)
 	//implementation(libs.edc.monitor.jdk.logger)
 	implementation(libs.edc.vault.hashicorp)
-	implementation(libs.edc.oauth2.service)
 	implementation(libs.edc.oauth2.daps)
-	implementation(libs.edc.auth.tokenbased)
-
-    // SQL
-    runtimeOnly(libs.bundles.edc.sqlstores)
-    runtimeOnly(libs.edc.transaction.local)
-    runtimeOnly(libs.edc.sql.pool)
-    runtimeOnly(libs.postgres)
 
     implementation(project(":policy-extension"))
-
 }
 
 repositories {

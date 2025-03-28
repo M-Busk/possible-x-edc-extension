@@ -20,7 +20,7 @@ import org.eclipse.edc.policy.engine.spi.AtomicConstraintFunction;
 import org.eclipse.edc.policy.engine.spi.PolicyContext;
 import org.eclipse.edc.policy.model.Operator;
 import org.eclipse.edc.policy.model.Rule;
-import org.eclipse.edc.spi.agent.ParticipantAgent;
+import org.eclipse.edc.participant.spi.ParticipantAgent;
 import org.eclipse.edc.spi.monitor.Monitor;
 
 import java.util.Arrays;
