@@ -16,10 +16,10 @@
 
 package org.eclipse.edc.extension.possiblepolicy;
 
-import org.eclipse.edc.policy.engine.spi.AtomicConstraintFunction;
+import org.eclipse.edc.policy.engine.spi.AtomicConstraintRuleFunction;
 import org.eclipse.edc.policy.engine.spi.PolicyContext;
 import org.eclipse.edc.policy.model.Operator;
-import org.eclipse.edc.policy.model.Rule;
+import org.eclipse.edc.policy.model.Permission;
 import org.eclipse.edc.participant.spi.ParticipantAgent;
 import org.eclipse.edc.spi.monitor.Monitor;
 
@@ -29,7 +29,7 @@ import java.util.Objects;
 
 import static java.lang.String.format;
 
-public class ClientClaimConstraintFunction<R extends Rule> implements AtomicConstraintFunction<R> {
+public class ClientClaimConstraintFunction<C extends PolicyContext> implements AtomicConstraintRuleFunction<Permission, C> {
 
     private final Monitor monitor;
     private final String clientClaimName;
@@ -42,7 +42,7 @@ public class ClientClaimConstraintFunction<R extends Rule> implements AtomicCons
     }
 
     @Override
-    public boolean evaluate(Operator operator, Object rightValue, R rule, PolicyContext context) {
+    public boolean evaluate(Operator operator, Object rightValue, Permission rule, C context) {
 
         if (!(rightValue instanceof String)) {
             context.reportProblem("Right-value expected to be String but was " + rightValue.getClass());
