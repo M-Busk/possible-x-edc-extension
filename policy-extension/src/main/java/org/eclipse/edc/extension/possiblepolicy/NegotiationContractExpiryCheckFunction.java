@@ -17,16 +17,20 @@
 package org.eclipse.edc.extension.possiblepolicy;
 
 import org.eclipse.edc.connector.controlplane.policy.contract.ContractExpiryCheckFunction;
-import org.eclipse.edc.policy.engine.spi.AtomicConstraintFunction;
+import org.eclipse.edc.policy.engine.spi.AtomicConstraintRuleFunction;
 import org.eclipse.edc.policy.engine.spi.PolicyContext;
 import org.eclipse.edc.policy.model.Operator;
-import org.eclipse.edc.policy.model.Rule;
+import org.eclipse.edc.policy.model.Permission;
 import org.eclipse.edc.spi.monitor.Monitor;
 
 import java.time.Instant;
 import java.time.format.DateTimeParseException;
+import java.util.Optional;
+
+import org.eclipse.edc.connector.controlplane.contract.spi.policy.ContractNegotiationPolicyContext;
 
 import static java.lang.String.format;
+
 
 /**
  * Custom reimplementation of the {@link ContractExpiryCheckFunction} from the Connector core to allow it to be used in the negotiation scope.
@@ -60,7 +64,7 @@ import static java.lang.String.format;
  * </ul>
  * Please note that all {@link Operator}s except {@link Operator#IN} are supported.
  */
-public class NegotiationContractExpiryCheckFunction<R extends Rule> implements AtomicConstraintFunction<R> {
+public class NegotiationContractExpiryCheckFunction<C extends ContractNegotiationPolicyContext> implements AtomicConstraintRuleFunction<Permission, C> {
 
     private final Monitor monitor;
     private static final String EXPRESSION_REGEX = "(contract[A,a]greement)\\+(-?[0-9]+)(s|m|h|d)";
@@ -71,35 +75,33 @@ public class NegotiationContractExpiryCheckFunction<R extends Rule> implements A
     }
 
     @Override
-    public boolean evaluate(Operator operator, Object rightValue, R rule, PolicyContext context) {
-        if (!(rightValue instanceof String)) {
+    public boolean evaluate(Operator operator, Object rightValue, Permission rule, C context) {
+        if (rightValue == null) {
+            context.reportProblem("Right-value is null.");
+            return false;
+        }
+
+        if (!(rightValue instanceof String rightValueStr)) {
             context.reportProblem("Right-value expected to be String but was " + rightValue.getClass());
             return false;
         }
 
-        try {
-            Instant now = Instant.now(); // "now" is not in context during negotiation, use current time
-
-            var rightValueStr = (String) rightValue;
-            var bound = asInstant(rightValueStr);
-            if (bound != null) {
-                monitor.info(format("Validating time constraint %s %s %s", now, operator, bound));
-                return checkFixedPeriod(now, operator, bound);
-            }
-
-            if (rightValueStr.matches(EXPRESSION_REGEX)) {
-                monitor.info(format("Offset constraints are ignored during negotiation. %s %s %s",
-                    ContractExpiryCheckFunction.CONTRACT_EXPIRY_EVALUATION_KEY, operator, rightValueStr));
-                return true;
-            }
-
-            context.reportProblem(format("Unsupported right-value, expected either an ISO-8061 String or a expression matching '%s', but got '%s'",
-                EXPRESSION_REGEX, rightValueStr));
-        } catch (NullPointerException | DateTimeParseException ex) {
-            monitor.warning(format("Exception during time policy evaluation: %s %s", ex.getClass().getCanonicalName(), ex.getMessage()));
-            context.reportProblem(ex.getMessage());
+        if (rightValueStr.matches(EXPRESSION_REGEX)) {
+            monitor.info(format("Offset constraints are ignored during negotiation. %s %s %s",
+                ContractExpiryCheckFunction.CONTRACT_EXPIRY_EVALUATION_KEY, operator, rightValueStr));
+            return true;
         }
-        return false;
+
+        Instant now = Instant.now(); // now is not available in negotiation context
+
+        return Optional.ofNullable(asInstant(rightValueStr))
+                .map(bound -> checkFixedPeriod(now, operator, bound))
+                .orElseGet(() -> {
+                    var message = "Unsupported right-value, expected either an ISO-8061 String or a expression matching '%s', but got '%s'"
+                            .formatted(ContractExpiryCheckFunction.CONTRACT_EXPIRY_EVALUATION_KEY, rightValueStr);
+                    context.reportProblem(message);
+                    return false;
+                });
     }
 
     private boolean checkFixedPeriod(Instant now, Operator operator, Instant bound) {
@@ -123,4 +125,5 @@ public class NegotiationContractExpiryCheckFunction<R extends Rule> implements A
             return null;
         }
     }
+    
 }

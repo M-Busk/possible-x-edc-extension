@@ -16,12 +16,14 @@
 
 package org.eclipse.edc.extension.possiblepolicy;
 
-import org.eclipse.edc.policy.engine.spi.AtomicConstraintFunction;
+import org.eclipse.edc.policy.engine.spi.AtomicConstraintRuleFunction;
 import org.eclipse.edc.policy.engine.spi.PolicyContext;
 import org.eclipse.edc.policy.model.Operator;
-import org.eclipse.edc.policy.model.Rule;
-import org.eclipse.edc.spi.agent.ParticipantAgent;
+import org.eclipse.edc.policy.model.Permission;
+import org.eclipse.edc.participant.spi.ParticipantAgent;
 import org.eclipse.edc.spi.monitor.Monitor;
+import org.eclipse.edc.connector.controlplane.contract.spi.policy.ContractNegotiationPolicyContext;
+import org.eclipse.edc.connector.controlplane.contract.spi.policy.TransferProcessPolicyContext;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -29,7 +31,7 @@ import java.util.Objects;
 
 import static java.lang.String.format;
 
-public class ClientClaimConstraintFunction<R extends Rule> implements AtomicConstraintFunction<R> {
+public class ClientClaimConstraintFunction<C extends PolicyContext> implements AtomicConstraintRuleFunction<Permission, C> {
 
     private final Monitor monitor;
     private final String clientClaimName;
@@ -42,14 +44,24 @@ public class ClientClaimConstraintFunction<R extends Rule> implements AtomicCons
     }
 
     @Override
-    public boolean evaluate(Operator operator, Object rightValue, R rule, PolicyContext context) {
+    public boolean evaluate(Operator operator, Object rightValue, Permission rule, C context) {
+
+        
 
         if (!(rightValue instanceof String)) {
             context.reportProblem("Right-value expected to be String but was " + rightValue.getClass());
             return false;
         }
+        ParticipantAgent contextData;
+        if (context instanceof ContractNegotiationPolicyContext negotiationContext) {
+            contextData = negotiationContext.participantAgent();
+        } else if (context instanceof TransferProcessPolicyContext transferContext) { 
+            contextData = transferContext.participantAgent();
+        } else {
+            monitor.info("Policy has no effect in this context");
+            return true;
+        }
 
-        var contextData = context.getContextData(ParticipantAgent.class);
         if (contextData == null) {
             return false;
         }
@@ -67,12 +79,12 @@ public class ClientClaimConstraintFunction<R extends Rule> implements AtomicCons
         String clientClaim = (String) contextData.getClaims().get(clientClaimName);
 
         if (clientClaim == null) {
-            monitor.info(format("Required claim %s not found.", clientClaimName));
+            monitor.warning(format("Required claim %s not found.", clientClaimName));
             return false;
         }
 
         monitor.info(format("Evaluating constraint: %s %s %s %s", clientClaimName, clientClaim, operator, rightValue));
-
+        
         return switch (operator) {
             case EQ -> Objects.equals(clientClaim, rightValue);
             case NEQ -> !Objects.equals(clientClaim, rightValue);
