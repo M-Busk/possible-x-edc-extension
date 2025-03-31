@@ -31,8 +31,7 @@ val ionosExtensionVersion: String by project
 dependencies {
     implementation(libs.edc.controlplane.base.bom)
     implementation(libs.edc.controlplane.feature.sql.bom)
-    //implementation(libs.edc.controlplane.oauth2.bom)
-    implementation(libs.edc.iam.mock)
+    implementation(libs.edc.controlplane.oauth2.bom)
     implementation(libs.edc.dataplane.base.bom) {
         exclude(module = "data-plane-selector-client")
         exclude(module = "data-plane-iam")  // to support PULL flow this would need to be added back
@@ -43,7 +42,7 @@ dependencies {
 	implementation(libs.edc.validator.data.address.aws.s3)
 	//implementation(libs.edc.monitor.jdk.logger)
 	implementation(libs.edc.vault.hashicorp)
-	//implementation(libs.edc.oauth2.daps)
+	implementation(libs.edc.oauth2.daps)
 
     implementation(project(":policy-extension"))
 }
